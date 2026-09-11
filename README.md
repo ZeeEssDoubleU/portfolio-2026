@@ -80,3 +80,5 @@ MIT. See [LICENSE](LICENSE).
 ### Preview motion
 
 Section headings and actions are lowercase. The hero background is fixed on all viewport sizes. Project routes retain the portfolio underneath a dark overlay with 22px backdrop blur. The entire project panel fades and unblurs over 450ms, after its screenshot decodes; screenshot loading transitions are disabled inside the synchronized panel. Exit reverses the panel fade/blur. Reduced-motion preferences skip the panel animation.
+
+Project navigation disables Next.js automatic scrolling. Opening a project freezes the retained portfolio at its captured scroll offset and locks document scrolling until the exit animation completes. Only project content scrolls; closing restores the saved document offset. The project list has a 400ms height transition with reversible show more/show less controls and retains expansion while a project is open.

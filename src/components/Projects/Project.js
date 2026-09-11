@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { PortfolioScrollContext } from '../../utils/PortfolioScrollContext'
 import styled from 'styled-components'
 import Link from 'next/link'
 
 export default function Project({ className, title, description, slug, index }) {
-  return <Row className={className} href={`/project/${slug}/`} aria-label={`show ${title} project info panel`}>
+  const rememberScroll = useContext(PortfolioScrollContext)
+  return <Row onNavigate={rememberScroll} scroll={false} className={className} href={`/project/${slug}/`} aria-label={`show ${title} project info panel`}>
     <span className="project-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
     <span className="project-copy">
       <span className="project-title">{title}</span>

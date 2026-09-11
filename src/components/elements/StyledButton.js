@@ -13,6 +13,8 @@ const Button = props => (
   <Wrapper
     type={props.type || "button"}
     aria-label={props["aria-label"]}
+    aria-expanded={props["aria-expanded"]}
+    aria-controls={props["aria-controls"]}
     form={props.form}
     target={props.target}
     onClick={props.onClick}

@@ -2,6 +2,7 @@
 import { createGlobalStyle } from "styled-components"
 
 export default createGlobalStyle`
+      html { scrollbar-gutter: stable; }
       html, body {
          font-family: Avenir, "Avenir Next", system-ui, sans-serif;
          background: black;

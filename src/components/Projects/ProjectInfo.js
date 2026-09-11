@@ -1,8 +1,7 @@
 // @ts-nocheck
-import React, { useEffect, useRef, useContext } from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import Img from "../PortfolioImage"
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
 // import components
 import { Wrapper } from "../elements/StyledButton"
 import { ExternalLink } from "../elements/CustomLink"
@@ -16,16 +15,7 @@ import { ProjectTransitionContext } from "../../utils/ProjectTransitionContext"
 // **********
 
 const ProjectInfo = props => {
-  // targetRef pointed at Container below
-  const targetRef = useRef(null)
   const onImageReady = useContext(ProjectTransitionContext)
-  useEffect(() => {
-    // assigned ref to variable at advice of react warning
-    const targetElem = targetRef.current
-    // body scroll disabled when component (modal) mounted
-    disableBodyScroll(targetElem)
-    return () => enableBodyScroll(targetElem)
-  }, [])
 
   // array to display tech stack below in render
   const techArray = props.tech.map((tech, index) => (
@@ -52,7 +42,7 @@ const ProjectInfo = props => {
         src={props.image.src}
         alt={`preview image of ${props.title} project`}
       />
-      <Main className="project-info" ref={targetRef}>
+      <Main className="project-info">
         <Grid>
           <Header>
             <h1 className="project-info-title">{props.title}</h1>
@@ -141,6 +131,8 @@ const Main = styled.main`
   max-width: 1400px;
   margin: 0 auto;
   overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
   mask-image: linear-gradient(
     to bottom,
