@@ -95,7 +95,11 @@ const Container = styled.div`
     grid-area: 2/1 / 3/2;
     grid-template-columns: auto;
     align-self: start;
+    width: 84%;
     .menu-link {
+      width: 100%;
+      margin-inline: 0;
+      text-align: center;
       opacity: 1;
       &.menu-home {
         display: inherit;

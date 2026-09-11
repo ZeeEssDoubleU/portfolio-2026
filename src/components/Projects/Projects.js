@@ -23,7 +23,7 @@ export default function Projects() {
         {visibleProjects.slice(5).map((project, index) => row(project, index + 5))}
       </motion.div>
     </Body>
-    {visibleProjects.length > 5 && <StyledButton icon={expanded ? undefined : 'plus'}
+    {visibleProjects.length > 5 && <StyledButton icon={expanded ? 'minus' : 'plus'}
       aria-label={expanded ? 'show less projects' : 'show more projects'}
       aria-expanded={expanded} aria-controls="additional-projects"
       onClick={() => setExpanded(value => !value)}>

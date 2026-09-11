@@ -131,9 +131,15 @@ const Modal = styled.div`
   -webkit-backdrop-filter: blur(22px);
   @media (min-width: 768px) {
     inset: 1rem auto;
-    left: 12.5%;
-    width: 75%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: calc(${props => props.theme.insetWidth} + 32px);
     border-radius: 20px;
+  }
+  @media (min-width: ${props => props.theme.desktop + 'px'}) {
+    left: 55%;
+    width: calc(90% - 32px);
   }
 `
 const Panel = styled(motion.div)`

@@ -20,6 +20,7 @@ import {
   FaTwitter,
   FaRegCopyright,
   FaPlus,
+  FaMinus,
   FaCheck,
   FaEllipsisH,
   FaMapMarkerAlt,
@@ -59,6 +60,8 @@ const Icon = props => {
       return <FaRegEnvelope {...props} />
     case "copyright":
       return <FaRegCopyright {...props} />
+    case "minus":
+      return <FaMinus {...props} />
     case "plus":
       return <FaPlus {...props} />
     case "check":

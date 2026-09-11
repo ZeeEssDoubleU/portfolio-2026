@@ -93,7 +93,9 @@ const NavGrid = styled.div`
 
   -webkit-overflow-scrolling: touch;
   @media (min-width: ${props => props.theme.desktop + "px"}) {
-    grid-template-columns: auto;
+    padding: 0;
+    justify-items: center;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: 144px auto 144px;
     justify-content: center;
     grid-row-gap: 30px;
