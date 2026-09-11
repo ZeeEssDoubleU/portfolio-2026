@@ -102,30 +102,27 @@ const Grid = styled.form`
   grid-row-gap: 20px;
   .form-field {
     width: 100%;
-    background: linear-gradient(
-      to left,
-      hsla(${props => props.theme.appGreenPartial}, 0.2),
-      hsla(${props => props.theme.appBluePartial}, 0.2)
-    );
-    color: ${props => props.theme.appGreen};
+    background: rgba(3, 9, 18, .45);
+    color: #c9d8e0;
     font-size: 16px;
     padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
+    border: 1px solid rgba(157,191,210,.18);
+    border-radius: 12px;
     transition: transform 0.2s, box-shadow 0.2s;
     &.form-textarea {
-      height: 120px;
-      resize: none;
+      min-height: 150px;
+      resize: vertical;
     }
     &:required {
       box-shadow: none;
     }
     &::placeholder {
-      color: ${props => props.theme.appGreen};
-      opacity: 0.6;
+      color: #c9d8e0;
+      opacity: .7;
     }
     &:focus {
-      transform: scale(1.02);
+      outline: none;
+      border-color: rgba(80,227,194,.65);
       box-shadow: 0 0 0 1px hsla(${props => props.theme.appGreenPartial}, 0.5);
       &::placeholder {
         opacity: 0;

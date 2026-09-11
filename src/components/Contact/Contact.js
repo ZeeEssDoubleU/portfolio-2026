@@ -32,7 +32,7 @@ const Contact = props => {
         aria-label="submit contact form"
         justifySelf="end"
       >
-        submit
+        send message
       </StyledButton>
       <Social />
       <Copyright>

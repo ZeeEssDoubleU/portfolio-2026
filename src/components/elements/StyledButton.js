@@ -13,6 +13,8 @@ const Button = props => (
   <Wrapper
     type={props.type || "button"}
     aria-label={props["aria-label"]}
+    aria-expanded={props["aria-expanded"]}
+    aria-controls={props["aria-controls"]}
     form={props.form}
     target={props.target}
     onClick={props.onClick}
@@ -31,14 +33,15 @@ export default Button
 
 export const Wrapper = styled.button`
   justify-self: end;
-  height: 65px;
-  color: ${props => props.theme.appBlue};
-  font-size: 18px;
-  background: black;
-  padding: 20px 24px;
-  border: none;
+  min-height: 56px;
+  color: ${props => props.theme.appGreen};
+  font-size: 16px;
+  font-weight: 500;
+  background: linear-gradient(120deg, rgba(80,227,194,.10), rgba(68,94,255,.10));
+  padding: 16px 24px;
+  border: 1px solid rgba(80,227,194,.22);
   border-radius: 10px;
-  box-shadow: 0 0 10px 0 ${props => props.theme.appShadowWhite};
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
   cursor: pointer;
   transition: color 0.3s;
   .action-grid {
@@ -56,6 +59,7 @@ export const Wrapper = styled.button`
       transition: opacity 0.2s;
     }
   }
+  &:focus-visible { outline: 2px solid #50e3c2; outline-offset: 4px; }
   &:hover {
     color: ${props => props.theme.appGreen};
     .action-text {

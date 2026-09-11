@@ -17,16 +17,16 @@ const NavMenu = props => {
   return (
     <Container menuExpanded={state.menuExpanded}>
       <InternalLink className="menu-link menu-home" href="landing">
-        Home
+        home
       </InternalLink>
       <InternalLink className="menu-link" href="about">
-        About
+        about
       </InternalLink>
       <InternalLink className="menu-link" href="projects">
-        Projects
+        projects
       </InternalLink>
       <InternalLink className="menu-link" href="contact">
-        Contact
+        contact
       </InternalLink>
     </Container>
   )
@@ -44,11 +44,33 @@ const Container = styled.div`
   justify-items: center;
   .menu-link {
     font-size: ${props => (props.menuExpanded ? "1.5em" : "inherit")};
-    color: ${props => props.theme.appBlue};
+    color: #a4b3bf;
     text-decoration: none;
     cursor: pointer;
 
-    transition: color 0.2s;
+    position: relative;
+    isolation: isolate;
+    padding: 12px 10px;
+    margin: -12px -10px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    transition: border-color 180ms ease, color 180ms ease;
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(105deg, rgba(80,227,194,.12), rgba(68,94,255,.06));
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+    &:hover, &:focus-visible {
+      border-color: rgba(80,227,194,.23);
+      &::before { opacity: 1; }
+    }
+    font-weight: 500;
+    &:focus-visible { outline: 2px solid #50e3c2; outline-offset: 8px; border-radius: 3px; }
     &:hover,
     &:active {
       color: ${props => props.theme.appGreen};
