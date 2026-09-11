@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 export default function ProjectInfoFooter({title}) {
- return <Container><Link href="/#projects" aria-label={`close ${title} project info panel`}>Close</Link></Container>
+ return <Container><Link href="/#projects" aria-label={`close ${title} project info panel`}>close</Link></Container>
 }
 const Container = styled.div`
   position: absolute;

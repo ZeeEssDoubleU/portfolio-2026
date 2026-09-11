@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useContext } from "react"
 import styled from "styled-components"
 import Img from "../PortfolioImage"
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
@@ -7,6 +7,7 @@ import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
 import { Wrapper } from "../elements/StyledButton"
 import { ExternalLink } from "../elements/CustomLink"
 import Footer from "./ProjectInfoFooter"
+import { ProjectTransitionContext } from "../../utils/ProjectTransitionContext"
 // TODO: Import icons for tech stack
 // import Icon from "../Icons/Icon"
 
@@ -17,6 +18,7 @@ import Footer from "./ProjectInfoFooter"
 const ProjectInfo = props => {
   // targetRef pointed at Container below
   const targetRef = useRef(null)
+  const onImageReady = useContext(ProjectTransitionContext)
   useEffect(() => {
     // assigned ref to variable at advice of react warning
     const targetElem = targetRef.current
@@ -44,6 +46,8 @@ const ProjectInfo = props => {
   return (
     <Container>
       <Thumbnail
+        synchronized
+        onReady={onImageReady}
         title={`${props.title} thumbnail`}
         src={props.image.src}
         alt={`preview image of ${props.title} project`}
@@ -70,11 +74,11 @@ const ProjectInfo = props => {
           </Links>
           <div className="project-info-desc">{props.moreInfo}</div>
           <div className="project-info-list">
-            <h3>Features</h3>
+            <h3>features</h3>
             <ul>{featuresArray}</ul>
           </div>
           <div className="project-info-list">
-            <h3>Development Tools</h3>
+            <h3>development tools</h3>
             <ul>{techArray}</ul>
           </div>
         </Grid>
@@ -96,7 +100,7 @@ const Container = styled.div`
   font-size: 16px;
   line-height: 1.5;
   color: ${props => props.theme.appTextWhiteM};
-  background: black;
+  background: transparent;
   @media (min-width: ${props => props.theme.desktop + "px"}) {
     padding-top: 24px;
   }
@@ -119,7 +123,7 @@ const Thumbnail = styled(Img)`
     object-position: 0% 0% !important;
     transform-origin: 0% 0%;
   }
-  background: black;
+  background: transparent;
   border: none;
   @media (min-width: ${props => props.theme.desktop + "px"}) {
     left: 50%;
@@ -164,7 +168,7 @@ const Grid = styled.div`
   grid-gap: 32px;
   text-align: center;
   padding: 96px 24px 24px;
-  background: linear-gradient(to bottom, transparent 0, black 216px);
+  background: linear-gradient(to bottom, transparent 0, rgba(0,3,8,.75) 216px);
   .project-info-desc {
     white-space: pre-wrap;
   }
@@ -185,7 +189,7 @@ const Grid = styled.div`
     left: 50%;
     transform: translateX(-50%);
     padding: 0 24px 24px;
-    background: linear-gradient(to bottom, transparent 0, black 72px);
+    background: linear-gradient(to bottom, transparent 0, rgba(0,3,8,.75) 72px);
   }
 `
 const Header = styled.div`

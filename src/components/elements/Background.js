@@ -12,7 +12,7 @@ export const Background = () => {
 
 
   return (
-    <Container bgSvgUrl="/assets/stripes.svg">
+    <Container className="site-background" bgSvgUrl="/assets/stripes.svg">
       <Icon name="logo-landing" className="logo" />
       <InternalLink
         href="about"
@@ -28,7 +28,10 @@ export const Background = () => {
 // styles
 // **********
 const Container = styled.div`
-  height: 100%;
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  height: 100svh;
   width: 100%;
   background: black bottom/cover url(${props => props.bgSvgUrl});
   /* svg icons down in component */
@@ -57,7 +60,7 @@ const Container = styled.div`
   @media (min-width: ${props => props.theme.tablet + "px"}) {
     position: fixed;
     will-change: transform;
-    overflow: auto;
+    overflow: hidden;
     height: 100vh;
   }
   @media (min-width: ${props => props.theme.desktop + "px"}) {

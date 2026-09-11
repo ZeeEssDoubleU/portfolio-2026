@@ -11,7 +11,7 @@ export const Layout = styled.section`
   overflow: hidden;
   border: 1px solid rgba(157, 191, 210, .16);
   border-radius: 24px;
-  background: linear-gradient(135deg, rgba(80,227,194,.055), transparent 45%), rgba(8, 14, 22, .95);
+  background: linear-gradient(135deg, rgba(80,227,194,.055), transparent 45%), rgba(8, 14, 22, .83);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 20px 60px rgba(0,0,0,.18);
   &::before {
     content: '';

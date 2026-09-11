@@ -17,16 +17,16 @@ const NavMenu = props => {
   return (
     <Container menuExpanded={state.menuExpanded}>
       <InternalLink className="menu-link menu-home" href="landing">
-        Home
+        home
       </InternalLink>
       <InternalLink className="menu-link" href="about">
-        About
+        about
       </InternalLink>
       <InternalLink className="menu-link" href="projects">
-        Projects
+        projects
       </InternalLink>
       <InternalLink className="menu-link" href="contact">
-        Contact
+        contact
       </InternalLink>
     </Container>
   )

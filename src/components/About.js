@@ -19,7 +19,7 @@ const About = (props) => {
 
 	return (
 		<Section id="about">
-			<Header>About</Header>
+			<Header>about</Header>
 			<Bio>
 				<Selfie
 					title="selfie"

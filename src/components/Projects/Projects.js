@@ -41,7 +41,7 @@ const Projects = props => {
 
   return (
     <Section id="projects">
-      <Header>Selected projects</Header>
+      <Header>selected projects</Header>
       <Body>{projectArray}</Body>
       {!isHidden && (
         <StyledButton
@@ -50,7 +50,7 @@ const Projects = props => {
           aria-label="show more projects"
           onClick={() => setShowMoreIndex(showMoreIndex + 5)}
         >
-          More projects
+          more projects
         </StyledButton>
       )}
     </Section>

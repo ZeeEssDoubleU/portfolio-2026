@@ -76,3 +76,7 @@ The deployment uses the existing Free plan and Netlify subdomain. Usage limits s
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+### Preview motion
+
+Section headings and actions are lowercase. The hero background is fixed on all viewport sizes. Project routes retain the portfolio underneath a dark overlay with 22px backdrop blur. The entire project panel fades and unblurs over 450ms, after its screenshot decodes; screenshot loading transitions are disabled inside the synchronized panel. Exit reverses the panel fade/blur. Reduced-motion preferences skip the panel animation.

@@ -7,18 +7,18 @@ export default function PortfolioImage(props) {
   return <LoadingImage key={props.src} {...props} />
 }
 
-function LoadingImage({ src, alt, title, className, blurDataURL }) {
+function LoadingImage({ src, alt, title, className, blurDataURL, synchronized = false, onReady }) {
   const [status, setStatus] = useState('loading')
-  return <Frame className={className} data-image-state={status}>
+  return <Frame className={className} data-image-state={status} data-synchronized={synchronized}>
     <Placeholder aria-hidden="true" style={{ backgroundImage: `url("${blurDataURL || placeholders[src] || ''}")` }} />
     <Image src={src} alt={alt} title={title} fill
       sizes="(min-width: 1024px) 30vw, 100vw"
       onLoad={async event => {
         const img = event.currentTarget
         try { await img.decode() } catch { /* onLoad already confirms a usable image */ }
-        requestAnimationFrame(() => requestAnimationFrame(() => setStatus('loaded')))
+        requestAnimationFrame(() => requestAnimationFrame(() => { setStatus('loaded'); onReady?.() }))
       }}
-      onError={() => setStatus('error')}
+      onError={() => { setStatus('error'); onReady?.() }}
     />
   </Frame>
 }
@@ -39,6 +39,7 @@ const Frame = styled.div`
   &[data-image-state='loaded'] > img { opacity: 1; filter: blur(0); }
   &[data-image-state='loaded'] > div { opacity: 0; }
   &[data-image-state='loading'] > div { animation: ${breathe} 1.4s ease-in-out infinite alternate; }
+  &[data-synchronized='true'] > img, &[data-synchronized='true'] > div { transition: none; }
   @media (prefers-reduced-motion: reduce) {
     > img, > div { transition: none; }
     > div { animation: none !important; }

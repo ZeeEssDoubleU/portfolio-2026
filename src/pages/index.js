@@ -17,7 +17,7 @@ import { useWindowResize } from "../utils/useWindowResize"
 // **********
 // component
 // **********
-const App = () => {
+const App = ({ background = false }) => {
   // let the document know when mouse is being used
   useEffect(() => {
     const mouse = () => document.body.classList.add("using-mouse")
@@ -48,7 +48,7 @@ const App = () => {
 
   return (
     <>
-      <SEO />
+      {!background && <SEO />}
       <Nav role="navigation" aria-label="main navigation" />
       <Main id="main">
         {/* ref forwarded to div INSIDE landing component */}
