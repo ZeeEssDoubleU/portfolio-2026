@@ -33,15 +33,6 @@ import {
 //   DiHtml5,
 // } from "react-icons/di"
 
-// TODO: Find the icons for the following
-// gatsby
-// graphQL
-// netlify
-// mongoDB
-// express
-// apollo
-// styled-components
-
 const Icon = props => {
   switch (props.name) {
     case "logo":

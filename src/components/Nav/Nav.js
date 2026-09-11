@@ -60,7 +60,8 @@ const Container = styled.nav`
   height: ${props => (props.menuExpanded ? "100%" : "80px")};
   width: 100%;
   border-bottom: solid 1px hsla(0, 0%, 8%, 1);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: ${props => (props.menuExpanded ? "auto" : "hidden")};
 
   background: ${props => props.theme.appBgDark};
   transition: height 0.3s;
@@ -72,6 +73,7 @@ const Container = styled.nav`
   @media (min-width: ${props => props.theme.desktop + "px"}) {
     height: 100%;
     width: 10%;
+    overflow-y: auto;
 
     opacity: 1;
     box-shadow: 0px 0px 10px 0px ${props => props.theme.appShadowWhite};

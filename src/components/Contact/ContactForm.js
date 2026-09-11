@@ -34,7 +34,7 @@ const ContactForm = props => {
       //   )
       // }}
     >
-      {/* input required by netlify for SSGs like gatsby */}
+      {/* Form name required by Netlify for static form submissions */}
       <input type="hidden" name="form-name" value="contact-form" />
       {/* hidden honeypot field meant to capture bots */}
       <input name="honeypot-field" style={{ display: "none" }} />

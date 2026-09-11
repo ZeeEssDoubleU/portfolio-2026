@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useLayoutEffect, useRef } from "react"
 import styled from "styled-components"
 import { gsap } from "gsap"
 // import store
@@ -18,18 +18,26 @@ const NavHamburger = props => {
 
   // componentDidMount.  Assign new timeline to tl
   // prevents re-initialization of timeline on re-renders
-  useEffect(() => {
-    tl.current = gsap.timeline({ paused: true })
-      .to([top.current, bottom.current], 0.2, { y: 0 }, 0)
-      .to(middle.current, 0.01, { autoAlpha: 0 }, 0.2)
-      .to(top.current, 0.2, { rotation: 45 }, 0.2)
-      .to(bottom.current, 0.2, { rotation: -45 }, 0.2)
-    return () => tl.current.kill()
+  useLayoutEffect(() => {
+    const context = gsap.context(() => {
+      gsap.set(top.current, { y: 0, yPercent: -400, rotation: 0 })
+      gsap.set(bottom.current, { y: 0, yPercent: 400, rotation: 0 })
+      tl.current = gsap.timeline({ paused: true, defaults: { ease: 'power1.out' } })
+        .to([top.current, bottom.current], { duration: 0.2, yPercent: 0 }, 0)
+        .to(middle.current, { duration: 0.01, autoAlpha: 0 }, 0.2)
+        .to(top.current, { duration: 0.2, rotation: 45 }, 0.2)
+        .to(bottom.current, { duration: 0.2, rotation: -45 }, 0.2)
+    })
+    return () => context.revert()
   }, [])
 
   // componentDidUpdate.  Play/reverse timeline
-  useEffect(() => {
-    state.menuExpanded ? tl.current.play() : tl.current.reverse()
+  useLayoutEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      tl.current.progress(state.menuExpanded ? 1 : 0).pause()
+    } else {
+      state.menuExpanded ? tl.current.play() : tl.current.reverse()
+    }
   }, [state.menuExpanded])
 
   // // DEBUG
@@ -80,9 +88,8 @@ const Inner = styled.div`
   height: ${2 * hamVars.layerSpacing + 3 * hamVars.layerHeight}px;
   transition: transform 0.2s, opacity 0.2s;
   will-change: transform;
-  &:hover {
-    opacity: 0.7;
-    transform: scale(1.2);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { opacity: 0.7; transform: scale(1.2); }
   }
 `
 // shape of each hamburger bar
