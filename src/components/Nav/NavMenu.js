@@ -44,11 +44,13 @@ const Container = styled.div`
   justify-items: center;
   .menu-link {
     font-size: ${props => (props.menuExpanded ? "1.5em" : "inherit")};
-    color: ${props => props.theme.appBlue};
+    color: #a4b3bf;
     text-decoration: none;
     cursor: pointer;
 
     transition: color 0.2s;
+    font-weight: 500;
+    &:focus-visible { outline: 2px solid #50e3c2; outline-offset: 8px; border-radius: 3px; }
     &:hover,
     &:active {
       color: ${props => props.theme.appGreen};

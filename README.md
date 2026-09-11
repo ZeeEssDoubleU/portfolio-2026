@@ -1,10 +1,18 @@
-# Portfolio 2026
+# Portfolio 2026 — modern design preview
 
 Zak (Zachary) Williams' personal portfolio, migrated from Gatsby to Next.js while retaining the original design, project history, and URLs.
 
-- **Website:** https://zsw-portfolio-2026.netlify.app/
-- **Application branch:** [`main`](https://github.com/ZeeEssDoubleU/portfolio-2026/tree/main)
+- **Website:** https://zsw-portfolio-2026-preview.netlify.app/
+- **Application branch:** [`design/modern-preview`](https://github.com/ZeeEssDoubleU/portfolio-2026/tree/design/modern-preview)
 - **Original project:** [portfolio-2019](https://github.com/ZeeEssDoubleU/portfolio-2019)
+
+## Preview scope
+
+This branch is an isolated design exploration. Production remains on `main` and https://zsw-portfolio-2026.netlify.app/. Deploy this branch only to the separate `zsw-portfolio-2026-preview` Netlify project (ID `d9598791-09cf-4b50-ad57-d6c6efde2296`).
+
+The design adds dark glass cards, desktop-only 10px backdrop blur, updated typography and buttons, and fully clickable project rows with hover/focus illumination. Small screens and reduced-motion/transparency preferences use an opaque fallback. Filters are not animated. Real-device frame rates should be reviewed before promoting the design.
+
+The preview sends `noindex, nofollow` in HTML and response headers. It is publicly accessible to anyone with its URL. Contact submissions belong to the separate preview project.
 
 ## Stack and structure
 
@@ -50,7 +58,7 @@ An optional `yarn sync:cms` refreshes project content from the original DatoCMS 
 
 The site is deployed to Netlify with `yarn build` and publish directory `out`. `netlify.toml` sets Node 22 and skips the Next.js server runtime plugin because this is a static export.
 
-Deployments have been uploaded directly. For automatic Git deployments, connect this repository and select **main**. Imported legacy branches are retained; they are not the current application.
+Deployments have been uploaded directly. For automatic preview Git deployments, connect this repository and select **design/modern-preview**. Imported legacy branches are retained; they are not the current application.
 
 The contact form uses Netlify Forms with a honeypot and `/thanks/` confirmation page. Form detection must be enabled on Netlify. Local static serving does not process form submissions.
 

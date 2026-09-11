@@ -21,7 +21,7 @@ const Contact = props => {
 
   return (
     <Section tabIndex={-1} id="contact">
-      <Header>get in touch</Header>
+      <Header>Get in touch</Header>
       <Body>
         <ContactForm />
       </Body>
@@ -32,7 +32,7 @@ const Contact = props => {
         aria-label="submit contact form"
         justifySelf="end"
       >
-        submit
+        Send message
       </StyledButton>
       <Social />
       <Copyright>

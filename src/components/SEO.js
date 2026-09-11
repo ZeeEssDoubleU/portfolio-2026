@@ -9,6 +9,7 @@ export default function SEO(props) {
   return <Head>
     <title>{title}</title>
     <meta name="description" content={props.description || description} />
+    <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#000000" />
     {props.keywords && <meta name="keywords" content={props.keywords.join(', ')} />}
     {url && <link rel="canonical" href={url} />}

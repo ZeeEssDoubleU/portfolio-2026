@@ -19,7 +19,7 @@ const About = (props) => {
 
 	return (
 		<Section id="about">
-			<Header>about</Header>
+			<Header>About</Header>
 			<Bio>
 				<Selfie
 					title="selfie"
@@ -81,12 +81,14 @@ const Bio = styled(Body)`
 	grid-template-rows: auto auto;
 	grid-template-columns: auto;
 	justify-items: center;
-	color: white;
-	font-size: 15px;
+	color: #b8c6d0;
+	font-size: 16px;
 	line-height: 1.8;
 	white-space: pre-wrap;
 	.bio-name {
-		font-size: 18px;
+		font-size: 24px;
+		letter-spacing: -.03em;
+		color: #f0f7f8;
 		font-weight: 500;
 	}
 	p {
