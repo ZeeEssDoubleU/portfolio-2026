@@ -1,5 +1,7 @@
-import React, { useState, useLayoutEffect, useRef } from 'react'
+import React, { useState, useLayoutEffect, useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
+import { scrollToAnim } from '../utils/scrollToAnim'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Background } from './elements/Background'
 import Home from '../pages/index'
@@ -7,6 +9,16 @@ import { PortfolioScrollContext } from '../utils/PortfolioScrollContext'
 import { ProjectTransitionContext } from '../utils/ProjectTransitionContext'
 
 export default function Layout({ children, location }) {
+  const router = useRouter()
+  const [desktopModal, setDesktopModal] = useState(false)
+  const destination = useRef(null)
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 768px)')
+    const update = () => setDesktopModal(query.matches)
+    update()
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
   const pathname = location.pathname.split(/[?#]/)[0]
   const isProject = pathname.startsWith('/project/')
   const [exitingProject, setExitingProject] = useState(false)
@@ -43,9 +55,38 @@ export default function Layout({ children, location }) {
       savedScroll.current = null
     }
   }, [blocked])
+  useEffect(() => {
+    if (!blocked && destination.current) {
+      const target = destination.current
+      destination.current = null
+      scrollToAnim(false, target)
+    }
+  }, [blocked])
+  useEffect(() => {
+    if (!isProject) return
+    const dismiss = event => {
+      if (event.type === 'keydown') {
+        if (event.key !== 'Escape') return
+      } else {
+        if (!desktopModal || event.target.closest('#project-modal')) return
+      }
+      const link = event.target.closest?.('a[href^="#"]')
+      const hash = link?.getAttribute('href')
+      destination.current = hash && document.querySelector(hash) ? hash : null
+      event.preventDefault()
+      event.stopPropagation()
+      router.push('/' + (destination.current || '#projects'), undefined, { scroll: false })
+    }
+    document.addEventListener('click', dismiss, true)
+    document.addEventListener('keydown', dismiss, true)
+    return () => {
+      document.removeEventListener('click', dismiss, true)
+      document.removeEventListener('keydown', dismiss, true)
+    }
+  }, [isProject, desktopModal, router])
   const portfolio = pathname === '/' || isProject || exitingProject
   return <PortfolioScrollContext.Provider value={rememberScroll}>
-    <div ref={shell} data-portfolio-layer inert={blocked ? true : undefined} aria-hidden={blocked ? true : undefined}>
+    <div ref={shell} data-portfolio-layer inert={blocked && !desktopModal ? true : undefined} aria-hidden={blocked && !desktopModal ? true : undefined}>
       <Background />
       {portfolio ? <Home background={blocked} /> : children}
     </div>
@@ -60,6 +101,7 @@ function ProjectOverlay({ children, onMounted }) {
   const reduced = useReducedMotion()
   const transition = { duration: reduced ? 0 : .45, ease: [.22, .61, .36, 1] }
   return <Shade initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={transition}>
+    <Modal id="project-modal">
     <ProjectTransitionContext.Provider value={() => setReady(true)}>
       <Panel id="page-transition" role="dialog" aria-modal="true" aria-label="project details"
         initial={{ opacity: .15, filter: 'blur(20px)' }}
@@ -68,6 +110,7 @@ function ProjectOverlay({ children, onMounted }) {
         {children}
       </Panel>
     </ProjectTransitionContext.Provider>
+    </Modal>
   </Shade>
 }
 const Shade = styled(motion.div)`
@@ -76,9 +119,22 @@ const Shade = styled(motion.div)`
   z-index: 10;
   overflow: hidden;
   overscroll-behavior: none;
+  pointer-events: none;
+`
+const Modal = styled.div`
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: auto;
   background: rgba(0, 3, 8, .9);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
+  @media (min-width: 768px) {
+    inset: 1rem auto;
+    left: 12.5%;
+    width: 75%;
+    border-radius: 20px;
+  }
 `
 const Panel = styled(motion.div)`
   position: absolute;

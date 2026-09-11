@@ -91,13 +91,13 @@ const Container = styled.div`
   line-height: 1.5;
   color: ${props => props.theme.appTextWhiteM};
   background: transparent;
-  @media (min-width: ${props => props.theme.desktop + "px"}) {
+  @media (min-width: ${props => props.theme.tablet + "px"}) {
     padding-top: 24px;
   }
 `
 const Thumbnail = styled(Img)`
   /* TODO: change vw to % when images are added */
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
   height: 100vw;
@@ -115,7 +115,7 @@ const Thumbnail = styled(Img)`
   }
   background: transparent;
   border: none;
-  @media (min-width: ${props => props.theme.desktop + "px"}) {
+  @media (min-width: ${props => props.theme.tablet + "px"}) {
     left: 50%;
     transform: translateX(-50%);
     width: 30vw;
@@ -146,7 +146,7 @@ const Main = styled.main`
   h4 {
     color: ${props => props.theme.appTextWhiteL};
   }
-  @media (min-width: ${props => props.theme.desktop + "px"}) {
+  @media (min-width: ${props => props.theme.tablet + "px"}) {
     left: 50%;
     transform: translateX(-50%);
   }
@@ -176,7 +176,7 @@ const Grid = styled.div`
       }
     }
   }
-  @media (min-width: ${props => props.theme.desktop + "px"}) {
+  @media (min-width: ${props => props.theme.tablet + "px"}) {
     top: 30vw;
     left: 50%;
     transform: translateX(-50%);
