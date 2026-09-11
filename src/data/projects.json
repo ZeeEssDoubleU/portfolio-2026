@@ -1,0 +1,287 @@
+[
+  {
+    "title": "Mathé",
+    "description": "A tea brochure website built with React, Gatsby and DatoCMS.",
+    "moreInfo": "Personally designed and developed for a local tea company.  Website serves as an online brochure for Mathé's products.  An online store is soon to be added with the Shopify API.",
+    "features": [
+      "CMS integration",
+      "Responsive design",
+      "Filter and sort product catalogue",
+      "Contact form"
+    ],
+    "tech": [
+      "React",
+      "Gatsby",
+      "GraphQL",
+      "Netlify",
+      "Styled-Components",
+      "GSAP"
+    ],
+    "projectLink": "https://mathetea.com/",
+    "codeLink": "https://github.com/ZeeEssDoubleU/mathe",
+    "image": {
+      "src": "/assets/mathe.jpg",
+      "aspectRatio": 0.8259717314487632
+    },
+    "slug": "mathe"
+  },
+  {
+    "title": "Street Eats",
+    "description": "Designed and developed a mock e-commerce food delivery app.  Built from scratch with React, Next.js, Material-UI, Strapi (headless CMS) and PostgreSQL.",
+    "moreInfo": null,
+    "features": [
+      "Stripe integration for payment processing",
+      "User creation enabled and authentication managed with JWT",
+      "Listings, products, user permissions, etc. created and managed with Strapi",
+      "Assets (images, etc.) served and manipulated with Cloudinary",
+      "Frontend deployed on Vercel",
+      "Backend deployed on Heroku"
+    ],
+    "tech": [
+      "React",
+      "Next.js",
+      "Material-UI",
+      "Strapi",
+      "Cloudinary",
+      "PostgreSQL",
+      "Stripe",
+      "Vercel",
+      "Heroku"
+    ],
+    "projectLink": "https://streeteats.vercel.app",
+    "codeLink": "https://github.com/ZeeEssDoubleU/street-eats",
+    "image": {
+      "src": "/assets/street-eats.jpg",
+      "aspectRatio": 0.40476190476190477
+    },
+    "slug": "street-eats"
+  },
+  {
+    "title": "Portfolio",
+    "description": "Personal portfolio built from scratch using Gatsby and React.",
+    "moreInfo": "The website you're on right now!  Integrated with DatoCMS and deployed on Netlify.",
+    "features": [
+      "CMS integration",
+      "Responsive design"
+    ],
+    "tech": [
+      "React",
+      "Gatsby",
+      "GraphQL",
+      "DatoCMS",
+      "Netlify",
+      "Styled-Components",
+      "GSAP"
+    ],
+    "projectLink": "https://zswportfolio.netlify.com",
+    "codeLink": "https://github.com/ZeeEssDoubleU/portfolio-2019",
+    "image": {
+      "src": "/assets/portfolio.jpg",
+      "aspectRatio": 1
+    },
+    "slug": "portfolio"
+  },
+  {
+    "title": "WatchStuff",
+    "description": "A Youtube clone built with React, Redux and the Youtube API.  \n",
+    "moreInfo": "Built for learning purposes and personal use.  Project served as introduction to Youtube API and Redux Saga.  Redux Saga used to help manage complex Redux state.",
+    "features": [
+      "Lazy load videos and comments",
+      "Search videos",
+      "Show trending videos",
+      "Store liked and saved videos",
+      "Store video view history",
+      "Responsive design"
+    ],
+    "tech": [
+      "React",
+      "Redux",
+      "Redux Saga",
+      "Youtube API",
+      "Netlify",
+      "Sass",
+      "Semantic UI"
+    ],
+    "projectLink": "https://watchstuff.netlify.com/",
+    "codeLink": "https://github.com/ZeeEssDoubleU/watch-stuff",
+    "image": {
+      "src": "/assets/watchstuff.jpg",
+      "aspectRatio": 0.381342062193126
+    },
+    "slug": "watchstuff"
+  },
+  {
+    "title": "Git the Issue",
+    "description": "App that tracks issues on Github.  Built with Apollo and React and interacts with the Github API.",
+    "moreInfo": "Built for learning purposes with Apollo and React.  This project served as my introduction to GraphQL and Apollo.",
+    "features": [
+      "Search organizations",
+      "Optimistic UI updates",
+      "Server-side filtering of repository issues",
+      "Real-time like and watch repositories",
+      "Real-time commenting on repository issues"
+    ],
+    "tech": [
+      "React",
+      "Apollo",
+      "GraphQL",
+      "Netlify",
+      "Sass",
+      "Github API"
+    ],
+    "projectLink": "https://git-the-issue.netlify.com",
+    "codeLink": "https://github.com/ZeeEssDoubleU/git-the-issue",
+    "image": {
+      "src": "/assets/git-the-issue.jpg",
+      "aspectRatio": 0.4714213454729388
+    },
+    "slug": "git-the-issue"
+  },
+  {
+    "title": "DevConnector",
+    "description": "Full stack social networking app.  Built using React, Redux, Express, MongoDb and deployed on Heroku.",
+    "moreInfo": "Features user account sign-up and login pages.  Authenticated users can create, edit and delete profiles.  Authenticated users can view a posts feed where they communicate with other developers, allowing them to add, delete, like and unlike comments.  In addition to user entered data, user profiles also pull data in from Github and Gravatar, if available.  User's 5 most recent Github repositories and Gravatar avatar images will be displayed.\n\nBuilt for learning purposes, primarily as an introduction to back-end development.  Learned the basics of Node, MongoDb and authentication using JSON web tokens.",
+    "features": [
+      "User authentication",
+      "Create, edit and delete user profiles",
+      "Comment in real-time",
+      "Like/unlike comments in real-time",
+      "Gravatar display",
+      "Display Github repositories"
+    ],
+    "tech": [
+      "React",
+      "Redux",
+      "Heroku",
+      "Express",
+      "MongoDb",
+      "Passport-JWT",
+      "Github API",
+      "Gravatar"
+    ],
+    "projectLink": "https://poke-master-connector.herokuapp.com",
+    "codeLink": "https://github.com/ZeeEssDoubleU/devConnector",
+    "image": {
+      "src": "/assets/devconnector.jpg",
+      "aspectRatio": 0.4535279805352798
+    },
+    "slug": "devconnector"
+  },
+  {
+    "title": "Chartizard",
+    "description": "A mock, Pokémon themed, user dashboard.  Created with HTML and CSS.",
+    "moreInfo": "A fun, beginner project built for learning purposes.  Assigned from Treehouse Tech Degree Program (www.teamtreehouse.com).",
+    "features": [
+      "Responsive design"
+    ],
+    "tech": [
+      "CSS",
+      "HTML",
+      "Github Pages"
+    ],
+    "projectLink": "https://zeeessdoubleu.github.io/chartizard",
+    "codeLink": "https://github.com/ZeeEssDoubleU/chartizard",
+    "image": {
+      "src": "/assets/chartizard.jpg",
+      "aspectRatio": 0.2550782550782551
+    },
+    "slug": "chartizard"
+  },
+  {
+    "title": "Awesome Employee Directory",
+    "description": "Mock company employee directory. AJAX used to pull data from a random employee API, which populates screen with tiles of employee info.",
+    "moreInfo": "Features a search/filter of returned employees.  Each employee tile is clickable into modal overlay that displays more information.  Employees can be traversed from the modal, without closing the modal.\n\nAssigned from Treehouse Tech Degree Program (www.teamtreehouse.com).",
+    "features": [
+      "Employee search",
+      "Employee modal (displays more info)",
+      "Responsive design"
+    ],
+    "tech": [
+      "JQuery",
+      "AJAX",
+      "Github Pages",
+      "HTML",
+      "CSS"
+    ],
+    "projectLink": "https://zeeessdoubleu.github.io/awesome-directory",
+    "codeLink": "https://github.com/ZeeEssDoubleU/awesome-directory",
+    "image": {
+      "src": "/assets/awesome-employee-directory.jpg",
+      "aspectRatio": 0.4683357879234168
+    },
+    "slug": "awesome-employee-directory"
+  },
+  {
+    "title": "Interactive Photo Gallery",
+    "description": "Interactive photo gallery that displays images larger when clicked.",
+    "moreInfo": "My intro to CSS grid system and modal overlays.  \n\nFeatures a photo grid layout and a search/filter functionality of returned photos.  Each photo can be clicked and enlarged onto a modal (overlay).  Photos can be traversed back/forward on the modal.\n\nAssigned from Treehouse Tech Degree Program (www.teamtreehouse.com).",
+    "features": [
+      "Photo result filter",
+      "Photo modal (enlarged display)",
+      "Modal traversal"
+    ],
+    "tech": [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "Github Pages"
+    ],
+    "projectLink": "https://zeeessdoubleu.github.io/interactive-photo-gallery",
+    "codeLink": "https://github.com/ZeeEssDoubleU/interactive-photo-gallery",
+    "image": {
+      "src": "/assets/interactive-photo-gallery.jpg",
+      "aspectRatio": 0.4714213454729388
+    },
+    "slug": "interactive-photo-gallery"
+  },
+  {
+    "title": "React Flickr Gallery",
+    "description": "App that pulls photos from Flickr API based on search terms and predefined page queries.",
+    "moreInfo": "My first React project and introduction to interacting with APIs.\n\nAssigned from Treehouse Tech Degree Program (www.teamtreehouse.com).",
+    "features": [
+      "Search image categories",
+      "Default search buttons"
+    ],
+    "tech": [
+      "React",
+      "Flickr API",
+      "Netlify",
+      "HTML",
+      "CSS"
+    ],
+    "projectLink": "https://react-flickr-gallery.netlify.com",
+    "codeLink": "https://github.com/ZeeEssDoubleU/react-flickr-gallery",
+    "image": {
+      "src": "/assets/react-flickr-gallery.jpg",
+      "aspectRatio": 0.5002529084471421
+    },
+    "slug": "react-flickr-gallery"
+  },
+  {
+    "title": "Github Issue Tracker",
+    "description": "App that tracks issues on Github.  Built with Apollo and React and interacts with the Github API.",
+    "moreInfo": "Built for learning purposes with Apollo and React.  This project served as my introduction to GraphQL and Apollo.",
+    "features": [
+      "Search organizations",
+      "Optimistic UI updates",
+      "Server-side filtering of repository issues",
+      "Real-time like and watch repositories",
+      "Real-time commenting on repository issues"
+    ],
+    "tech": [
+      "React",
+      "Apollo",
+      "GraphQL",
+      "Netlify",
+      "Sass",
+      "Github API"
+    ],
+    "projectLink": "https://zsw-github-issue-tracker.netlify.com",
+    "codeLink": "https://github.com/ZeeEssDoubleU/graphql-github_issue_tracker",
+    "image": {
+      "src": "/assets/github-issue-tracker.jpg",
+      "aspectRatio": 0.4714213454729388
+    },
+    "slug": "github-issue-tracker"
+  }
+]

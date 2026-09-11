@@ -12,7 +12,8 @@ import { useStore } from "../store/useStore"
 
 const Layout = ({ children, location }) => {
   const { state } = useStore()
-  const { pathname } = location
+  const pathname = location.pathname.split(/[?#]/)[0]
+  const isProject = pathname.startsWith("/project/")
   const duration = 0.3
   const slideUp = {
     initial: {
@@ -58,8 +59,8 @@ const Layout = ({ children, location }) => {
       <AnimatePresence>
         <PageTransition
           id="page-transition"
-          key={pathname}
-          variants={pathname.includes("project") ? slideUp : fixed}
+          key={pathname.split(/[?#]/)[0]}
+          variants={isProject ? slideUp : fixed}
           initial="initial"
           animate="enter"
           exit="exit"

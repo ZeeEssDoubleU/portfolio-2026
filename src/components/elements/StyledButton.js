@@ -11,7 +11,8 @@ import Icon from "../Icons/Icon"
 
 const Button = props => (
   <Wrapper
-    type={props.type}
+    type={props.type || "button"}
+    aria-label={props["aria-label"]}
     form={props.form}
     target={props.target}
     onClick={props.onClick}

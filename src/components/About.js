@@ -1,8 +1,8 @@
 // @ts-nocheck
 import React from "react";
 import styled from "styled-components";
-import { useStaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image";
+
+import Img from "./PortfolioImage";
 // import components
 import { InternalLink } from "./elements/CustomLink";
 import StyledButton from "./elements/StyledButton";
@@ -15,7 +15,7 @@ import { Layout, Header, Body } from "../styles/elements";
 // **********
 
 const About = (props) => {
-	const { datoCmsAsset } = useStaticQuery(query);
+
 
 	return (
 		<Section id="about">
@@ -23,7 +23,7 @@ const About = (props) => {
 			<Bio>
 				<Selfie
 					title="selfie"
-					fluid={{ ...datoCmsAsset.fluid }}
+					src="/assets/selfie-tinted.png"
 					alt="selfie photo of developer with dark filter"
 				/>
 				<div>
@@ -37,7 +37,7 @@ const About = (props) => {
 					<p>
 						My name is Zachary Williams, or Zak for short.{"  "}I’m a{" "}
 						<Highlight>front-end developer</Highlight> based in New York
-						CIty.
+						City.
 						{"  "}I enjoy creating clean, intuitive web interfaces that
 						provide a satisfying user experience.
 					</p>
@@ -65,15 +65,7 @@ export default React.memo(About);
 // query
 // **********
 
-const query = graphql`
-	{
-		datoCmsAsset(path: { regex: "/selfie-tinted.png/" }) {
-			fluid(imgixParams: { auto: "format", q: 0 }) {
-				...GatsbyDatoCmsFluid
-			}
-		}
-	}
-`;
+
 
 // **********
 // styles
@@ -108,6 +100,7 @@ const Bio = styled(Body)`
 `;
 const Selfie = styled(Img)`
 	/* stretch image across background */
+	position: relative;
 	height: 240px;
 	width: 100%;
 	/* creates fade to black effect on background image */
@@ -122,7 +115,8 @@ const Selfie = styled(Img)`
 	}
 	/* creates fade to black effect on background image */
 	@media (min-width: ${(props) => props.theme.tablet + "px"}) {
-		height: 240px;
+		position: relative;
+	height: 240px;
 		width: 240px;
 		mask-image: radial-gradient(black 30%, transparent 100%);
 		img {

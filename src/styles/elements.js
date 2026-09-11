@@ -20,14 +20,14 @@ export const Layout = styled.section`
     box-shadow: 0px 0px 10px 0px ${props => props.theme.appShadowWhite};
   }
 `
-export const Header = styled.div`
+export const Header = styled.h2`
   width: 100%;
   padding-bottom: 8px;
   border-bottom: 1px solid ${props => props.theme.appGreen};
   margin: 24px 0;
 
   justify-self: start;
-  font-family: Avenir;
+  font-family: inherit;
   font-weight: 300;
   font-size: 24px;
   color: ${props => props.theme.appGreen};

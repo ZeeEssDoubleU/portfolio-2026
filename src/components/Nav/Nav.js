@@ -8,7 +8,7 @@ import NavHamburger from "./NavHamburger"
 import NavMenu from "./NavMenu"
 // import store / utils
 import { useStore } from "../../store/useStore"
-import { useAnim_showNav, useAnim_expandMenu } from "../../utils/animations"
+import { useAnim_showNav } from "../../utils/animations"
 
 // **********
 // component
@@ -23,11 +23,12 @@ const Nav = props => {
     state.menuExpanded
       ? disableBodyScroll(targetRef.current)
       : enableBodyScroll(targetRef.current)
+    const target = targetRef.current
+    return () => enableBodyScroll(target)
   }, [state.menuExpanded])
 
   // navigation animations
   useAnim_showNav(state)
-  useAnim_expandMenu(state)
 
   return (
     <Container

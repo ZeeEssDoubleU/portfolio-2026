@@ -70,7 +70,7 @@ const Container = styled.div`
     grid-template-columns: auto;
     align-self: start;
     .menu-link {
-      opacity: 0;
+      opacity: 1;
       &.menu-home {
         display: inherit;
       }

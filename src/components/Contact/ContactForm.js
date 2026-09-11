@@ -20,6 +20,7 @@ const ContactForm = props => {
       id="contact-form"
       name="contact-form"
       method="POST"
+      action="/thanks/"
       data-netlify="true"
       data-netlify-honeypot="honeypot-field"
       // // logic to push contact data to Firebase & Firestore

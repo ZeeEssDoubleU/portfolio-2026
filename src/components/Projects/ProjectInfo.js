@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useRef } from "react"
 import styled from "styled-components"
-import Img from "gatsby-image"
+import Img from "../PortfolioImage"
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
 // import components
 import { Wrapper } from "../elements/StyledButton"
@@ -45,7 +45,7 @@ const ProjectInfo = props => {
     <Container>
       <Thumbnail
         title={`${props.title} thumbnail`}
-        fluid={{ ...props.image.fluid }}
+        src={props.image.src}
         alt={`preview image of ${props.title} project`}
       />
       <Main className="project-info" ref={targetRef}>
@@ -93,6 +93,8 @@ const Container = styled.div`
   height: 100%;
   width: 100%;
 
+  font-size: 16px;
+  line-height: 1.5;
   color: ${props => props.theme.appTextWhiteM};
   background: black;
   @media (min-width: ${props => props.theme.desktop + "px"}) {
@@ -120,6 +122,8 @@ const Thumbnail = styled(Img)`
   background: black;
   border: none;
   @media (min-width: ${props => props.theme.desktop + "px"}) {
+    left: 50%;
+    transform: translateX(-50%);
     width: 30vw;
     height: 30vw;
     margin: 0 auto;
@@ -186,15 +190,20 @@ const Grid = styled.div`
 `
 const Header = styled.div`
   .project-info-title {
+    font-size: 32px;
     margin: 0.5em 0 8px;
   }
 `
 const Links = styled.div`
   display: grid;
+  a { text-decoration: none; }
 `
 // Wrapper styled-component pulled from Button component style
-const ViewProject = styled(Wrapper)`
-  width: 150px;
+const ViewProject = styled(Wrapper).attrs({ as: "span" })`
+  display: block;
+  width: 160px;
+  padding: 20px 16px;
+  white-space: nowrap;
   border: 1px solid hsla(${props => props.theme.appBluePartial}, 0.3);
   border-radius: 10px 10px 0 0;
   transition: color 0.2s, border-color 0.2s;
@@ -202,8 +211,11 @@ const ViewProject = styled(Wrapper)`
     border: 1px solid hsla(${props => props.theme.appGreenPartial}, 0.3);
   }
 `
-const ViewCode = styled(Wrapper)`
-  width: 150px;
+const ViewCode = styled(Wrapper).attrs({ as: "span" })`
+  display: block;
+  width: 160px;
+  padding: 20px 16px;
+  white-space: nowrap;
   border: 1px solid hsla(${props => props.theme.appBluePartial}, 0.3);
   border-radius: 0 0 10px 10px;
   transition: color 0.2s, border-color 0.2s;

@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import "intersection-observer"
+
 
 export const useIntersectionObserver = (
   dispatch,

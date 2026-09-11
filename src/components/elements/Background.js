@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { useStaticQuery, graphql } from "gatsby"
+
 // import components
 import Icon from "../Icons/Icon"
 import { InternalLink } from "./CustomLink"
@@ -9,10 +9,10 @@ import { InternalLink } from "./CustomLink"
 // component
 // **********
 export const Background = () => {
-  const { datoCmsAsset } = useStaticQuery(query)
+
 
   return (
-    <Container bgSvgUrl={datoCmsAsset.url}>
+    <Container bgSvgUrl="/assets/stripes.svg">
       <Icon name="logo-landing" className="logo" />
       <InternalLink
         href="about"
@@ -69,11 +69,3 @@ const Container = styled.div`
 // **********
 // query
 // **********
-
-const query = graphql`
-  {
-    datoCmsAsset(path: { regex: "/stripes.svg/" }) {
-      url
-    }
-  }
-`

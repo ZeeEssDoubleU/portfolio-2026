@@ -65,19 +65,8 @@ const reducer = (state, action) => {
 }
 
 // initial state
-const initState =
-  typeof window !== "undefined"
-    ? {
-        navVisible: false,
-        menuExpanded: false,
-        windowWidth: window.innerWidth,
-        windowHeight: window.innerHeight,
-        isMobile: window.innerWidth < theme.tablet,
-        isDesktop: window.innerWidth >= theme.desktop,
-        pathname: null,
-        prevPathname: null,
-      }
-    : {} // fallback to {} so that sub states don't return null
+const initState = { navVisible: false, menuExpanded: false, windowWidth: 0,
+  windowHeight: 0, isMobile: false, isDesktop: false, pathname: null, prevPathname: null }
 
 // context that stores and shares data
 const StoreContext = createContext(initState)

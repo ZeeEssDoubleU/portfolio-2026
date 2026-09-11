@@ -1,97 +1,48 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's hello-world starter
-</h1>
+# Portfolio 2026
 
-Kick off your project with this hello-world boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+Migration of [portfolio-2019](https://github.com/ZeeEssDoubleU/portfolio-2019) from Gatsby to Next.js 16, preserving the original design, biography, branding, project content, and routes. The original Git history is retained.
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+## Development
 
-## 🚀 Quick start
+Use Node.js 22+ and Yarn Classic 1.22.22.
 
-1.  **Create a Gatsby site.**
+```sh
+corepack enable
+yarn install --frozen-lockfile
+yarn dev
+```
 
-    Use the Gatsby CLI to create a new site, specifying the hello-world starter.
+## Production
 
-    ```sh
-    # create a new Gatsby site using the hello-world starter
-    gatsby new my-hello-world-starter https://github.com/gatsbyjs/gatsby-starter-hello-world
-    ```
+```sh
+yarn build
+yarn test
+yarn start
+```
 
-1.  **Start developing.**
+`next build` exports the entire website to `out/`. `yarn start` serves that directory locally. No Node.js server, API keys, database, or paid runtime is required in production.
 
-    Navigate into your new site’s directory and start it up.
+## Migration details
 
-    ```sh
-    cd my-hello-world-starter/
-    gatsby develop
-    ```
+- Next.js Pages Router replaces Gatsby pages and `createPages`. This retains the component architecture and styled-components design while using the current Next.js release.
+- Eleven `/project/<slug>/` routes are generated with `getStaticPaths`/`getStaticProps`, including the older `github-issue-tracker` URL. The home page retains the original ten-project listing and five-at-a-time reveal.
+- `next/head` replaces React Helmet, `next/link` replaces Gatsby/Reach navigation, and `next/image` replaces Gatsby Image. Images are pre-existing local assets with static delivery, so there is no paid image optimization service.
+- Styled-components server rendering includes the styles in generated HTML. React, styled-components, Framer Motion, and GSAP are upgraded for the new framework.
+- The contact form remains a Netlify Form with a honeypot and now redirects to `/thanks/` after a successful submission. Enable form detection in the Netlify project before deploying.
+- The close action returns to the portfolio even when a project URL is opened directly. External links preserve case and use correct `target`/`rel` attributes. Resize and input listeners clean up on unmount, and initial state is hydration-safe.
+- Gatsby plugins and generated Gatsby output are removed. The original installable web manifest and icons remain. Gatsby's offline service worker is not carried over; this export does not promise offline support.
+- Biography, project descriptions, and external project destinations are historical content, not a 2026 career update. Some external demo services may no longer be running.
 
-1.  **Open the source code and start editing!**
+## Content and DatoCMS
 
-    Your site is now running at `http://localhost:8000`!
+`src/data/projects.json` is a snapshot recovered from the original repository's committed Gatsby page data. Screenshots, portrait, and background are included in `public/assets/`, so the default build and published images do not depend on DatoCMS availability.
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+Edit the JSON to update content. An optional `yarn sync:cms` command refreshes it from the original DatoCMS Project model when a read-only `DATO_API_TOKEN` is configured in `.env.local`. It refuses to overwrite the snapshot if the request fails or returns invalid content. The optional sync cannot be verified without a CMS token. It restores remote CMS image URLs for refreshed content; ordinary builds never contact the CMS. Review and commit the changes, then rebuild. Never commit API tokens.
 
-    Open the `my-hello-world-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+## Netlify
 
-## 🧐 What's inside?
+`netlify.toml` configures Node 22, `yarn build`, and the `out` publish directory. The Next.js runtime plugin is skipped because all pages are static. The canonical origin is configured for `https://zsw-portfolio-2026.netlify.app`; update `NEXT_PUBLIC_SITE_URL` when attaching a custom domain.
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+For Git-based continuous deployment, connect `ZeeEssDoubleU/portfolio-2026`, choose the main branch, and keep the settings in `netlify.toml`. Netlify's free subdomain and SSL avoid domain-registration costs. Keep the team on Free and do not enable paid upgrades or add-ons. Free hosting is subject to the account's monthly usage limits.
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
-
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
-
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-hello-world)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
+The static output can also be hosted on Cloudflare Pages or Vercel. The contact form is Netlify-specific and needs another form handler when moving hosts. Server-side Next.js features can be added later by removing `output: 'export'` and using the target host's Next.js runtime.

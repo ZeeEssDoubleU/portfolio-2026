@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from "react"
 import styled from "styled-components"
-import { useStaticQuery, graphql } from "gatsby"
+
 // import components
 import StyledButton from "../elements/StyledButton"
 import Icon from "../Icons/Icon"
@@ -15,12 +15,12 @@ import { Layout, Header, Body } from "../../styles/elements"
 // **********
 
 const Contact = props => {
-  const { datoCmsAsset } = useStaticQuery(query)
+
 
   const currentDate = new Date().getFullYear()
 
   return (
-    <Section tabIndex={-1} id="contact" bgSvgUrl={datoCmsAsset.url}>
+    <Section tabIndex={-1} id="contact">
       <Header>get in touch</Header>
       <Body>
         <ContactForm />
@@ -49,21 +49,13 @@ export default React.memo(Contact)
 // query
 // **********
 
-const query = graphql`
-  {
-    datoCmsAsset(path: { regex: "/stripes.svg/" }) {
-      url
-    }
-  }
-`
+
 
 // **********
 // styles
 // **********
 
-const Section = styled(Layout)`
-  background: bottom/cover url(${props => props.bgSvgUrl});
-`
+const Section = styled(Layout)``
 const Copyright = styled.p`
   display: grid;
   grid-template-columns: auto auto auto;

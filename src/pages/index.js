@@ -20,12 +20,14 @@ import { useWindowResize } from "../utils/useWindowResize"
 const App = () => {
   // let the document know when mouse is being used
   useEffect(() => {
-    document.body.addEventListener("mousedown", () => {
-      document.body.classList.add("using-mouse")
-    })
-    document.body.addEventListener("keydown", () => {
-      document.body.classList.remove("using-mouse")
-    })
+    const mouse = () => document.body.classList.add("using-mouse")
+    const keyboard = () => document.body.classList.remove("using-mouse")
+    document.body.addEventListener("mousedown", mouse)
+    document.body.addEventListener("keydown", keyboard)
+    return () => {
+      document.body.removeEventListener("mousedown", mouse)
+      document.body.removeEventListener("keydown", keyboard)
+    }
   }, [])
 
   // grab context from theme for use in component

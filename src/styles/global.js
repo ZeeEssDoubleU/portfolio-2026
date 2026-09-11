@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components"
 
 export default createGlobalStyle`
       html, body {
-         font-family: Avenir;
+         font-family: Avenir, "Avenir Next", system-ui, sans-serif;
          background: black;
          /* handles scroll behavior when app menu is open */
          overflow-x: hidden;

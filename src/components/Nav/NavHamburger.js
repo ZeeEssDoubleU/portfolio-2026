@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react"
 import styled from "styled-components"
-import { TimelineLite } from "gsap"
+import { gsap } from "gsap"
 // import store
 import { useStore, onToggleMenu } from "../../store/useStore" // import store / utils
 
@@ -19,11 +19,12 @@ const NavHamburger = props => {
   // componentDidMount.  Assign new timeline to tl
   // prevents re-initialization of timeline on re-renders
   useEffect(() => {
-    tl.current = new TimelineLite({ paused: true })
+    tl.current = gsap.timeline({ paused: true })
       .to([top.current, bottom.current], 0.2, { y: 0 }, 0)
       .to(middle.current, 0.01, { autoAlpha: 0 }, 0.2)
       .to(top.current, 0.2, { rotation: 45 }, 0.2)
       .to(bottom.current, 0.2, { rotation: -45 }, 0.2)
+    return () => tl.current.kill()
   }, [])
 
   // componentDidUpdate.  Play/reverse timeline
@@ -37,6 +38,7 @@ const NavHamburger = props => {
   return (
     <Container
       className="nav-hamburger"
+      aria-expanded={state.menuExpanded}
       aria-label={!state.menuExpanded ? "open nav menu" : "close nav menu"}
       onClick={() => onToggleMenu(dispatch, !state.menuExpanded)}
     >

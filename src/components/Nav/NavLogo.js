@@ -66,7 +66,7 @@ const Container = styled.div`
   @media (min-width: ${props => props.theme.desktop + "px"}) {
     grid-template-columns: auto;
     .logo-items {
-      opacity: 0;
+      opacity: 1;
       .logo {
         height: 84px;
         width: 84px;

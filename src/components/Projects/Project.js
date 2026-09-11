@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Link } from "gatsby"
+import Link from "next/link"
 // import components
 import Icon from "../Icons/Icon"
 
@@ -13,7 +13,7 @@ const Project = props => {
     <Container className={props.className}>
       <div className="project-title">{props.title}</div>
       <div className="project-description">{props.description}</div>
-      <Link to={`/project/${props.slug}`}>
+      <Link href={`/project/${props.slug}/`} aria-label={`show ${props.title} project info panel`}>
         <Icon
           className="project-ellipsis"
           name="ellipsis"

@@ -39,14 +39,15 @@ export const InternalLink = React.memo(props => {
 // **********
 
 export const ExternalLink = React.memo(props => {
-  const target = props.href.toLowerCase()
+  const target = props.href
 
   return (
     <a
+      aria-label={props["aria-label"]}
       className={props.className}
       href={target}
-      rel="_blank"
-      target="noopener noreferrer"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       {props.children}
     </a>

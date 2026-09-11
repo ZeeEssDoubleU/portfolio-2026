@@ -180,7 +180,7 @@ const SVG = props => (
       </linearGradient>
     </defs>
     <g fill="none" fillRule="evenodd" transform="translate(.5)">
-      <text fill="#50E3C2" fontFamily="Avenir-Book, Avenir" fontSize="18">
+      <text fill="#50E3C2" fontFamily="Avenir-Book, Avenir, system-ui, sans-serif" fontSize="18">
         <tspan x="70.158" y="381">
           Web Developer
         </tspan>

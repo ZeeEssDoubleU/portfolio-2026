@@ -60,3 +60,9 @@ typings/
 
 # firebase folder
 .firebase
+.next/
+out/
+.netlify/
+.sites-runtime/
+.env*
+!.env.example

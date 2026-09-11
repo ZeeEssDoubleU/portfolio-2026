@@ -1,7 +1,8 @@
+import projects from "../../data/projects.json"
 // @ts-nocheck
 import React, { useState } from "react"
 import styled from "styled-components"
-import { useStaticQuery, graphql } from "gatsby"
+
 // import components
 import StyledButton from "../elements/StyledButton"
 import Project from "./Project"
@@ -14,7 +15,7 @@ import { Layout, Header, Body } from "../../styles/elements"
 
 // TODO: need to include Projects states into global state
 const Projects = props => {
-  const { allDatoCmsProject } = useStaticQuery(query)
+  const allDatoCmsProject = {edges: projects.filter(project => project.slug !== "github-issue-tracker").map(node => ({node}))}
   const [showMoreIndex, setShowMoreIndex] = useState(5)
 
   // display 'show more' button if all projects aren't shown
@@ -63,17 +64,3 @@ const Section = styled(Layout)``
 // **********
 // query
 // **********
-
-const query = graphql`
-  {
-    allDatoCmsProject(sort: { fields: order, order: DESC }) {
-      edges {
-        node {
-          title
-          description
-          slug
-        }
-      }
-    }
-  }
-`
