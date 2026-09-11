@@ -126,6 +126,8 @@ const Modal = styled.div`
   inset: 0;
   overflow: hidden;
   pointer-events: auto;
+  border: 1px solid rgba(157,191,210,.24);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
   background: rgba(0, 3, 8, .9);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);

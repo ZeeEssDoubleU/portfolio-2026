@@ -42,7 +42,7 @@ const ProjectInfo = props => {
         src={props.image.src}
         alt={`preview image of ${props.title} project`}
       />
-      <Main className="project-info">
+      <Main className="project-info" tabIndex={0} aria-label="scroll project details">
         <Grid>
           <Header>
             <h1 className="project-info-title">{props.title}</h1>
@@ -96,25 +96,28 @@ const Container = styled.div`
   }
 `
 const Thumbnail = styled(Img)`
-  /* TODO: change vw to % when images are added */
   position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100vw;
-  max-height: calc(100% - 70px);
+  top: 16px;
+  left: 16px;
+  width: calc(100% - 32px);
+  height: calc(100vw - 32px);
+  max-height: calc(100% - 86px);
+  border: 1px solid rgba(80, 227, 194, .24);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+  /* Fade the full frame, including its border and loading placeholder, with
+     eased opacity stops so there is no hard seam beneath the screenshot. */
+  mask-image: linear-gradient(to bottom,
+    black 0%, black 38%, rgba(0,0,0,.96) 48%,
+    rgba(0,0,0,.84) 58%, rgba(0,0,0,.65) 68%,
+    rgba(0,0,0,.38) 78%, rgba(0,0,0,.14) 88%,
+    rgba(0,0,0,.025) 96%, transparent 100%);
   img {
-    mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      black,
-      transparent 100%
-    );
     object-fit: cover;
     object-position: 0% 0% !important;
     transform-origin: 0% 0%;
   }
   background: transparent;
-  border: none;
   @media (min-width: ${props => props.theme.tablet + "px"}) {
     left: 50%;
     transform: translateX(-50%);
@@ -131,6 +134,9 @@ const Main = styled.main`
   max-width: 1400px;
   margin: 0 auto;
   overflow: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; width: 0; height: 0; }
+  &:focus-visible { outline: 1px solid rgba(80,227,194,.35); outline-offset: -4px; }
   overscroll-behavior: contain;
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
