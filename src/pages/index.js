@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { ThemeContext } from "styled-components"
 // import components
+import useSectionMotion from "../utils/useSectionMotion"
 import SEO from "../components/SEO"
 import Nav from "../components/Nav/Nav"
 import Landing from "../components/Landing"
@@ -18,6 +19,7 @@ import { useWindowResize } from "../utils/useWindowResize"
 // component
 // **********
 const App = ({ background = false }) => {
+  useSectionMotion()
   // let the document know when mouse is being used
   useEffect(() => {
     const mouse = () => document.body.classList.add("using-mouse")

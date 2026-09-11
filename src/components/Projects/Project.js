@@ -2,14 +2,17 @@ import React, { useContext } from 'react'
 import { PortfolioScrollContext } from '../../utils/PortfolioScrollContext'
 import styled from 'styled-components'
 import Link from 'next/link'
+import PortfolioImage from '../PortfolioImage'
 
-export default function Project({ className, title, description, slug, index }) {
+export default function Project({ className, title, description, slug, index, image, tech }) {
   const rememberScroll = useContext(PortfolioScrollContext)
   return <Row onNavigate={rememberScroll} scroll={false} className={className} href={`/project/${slug}/`} aria-label={`show ${title} project info panel`}>
     <span className="project-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+    <Thumbnail src={image.src} alt="" />
     <span className="project-copy">
       <span className="project-title">{title}</span>
       <span className="project-description">{description}</span>
+      <span className="project-tech">{tech.slice(0,3).map(item => <span key={item}>{item}</span>)}</span>
     </span>
     <span className="project-arrow" aria-hidden="true">↗</span>
   </Row>
@@ -17,7 +20,7 @@ export default function Project({ className, title, description, slug, index }) 
 const Row = styled(Link)`
   position: relative;
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr) 32px;
+  grid-template-columns: 24px 96px minmax(0, 1fr) 32px;
   gap: 16px;
   align-items: center;
   padding: 24px 16px;
@@ -40,6 +43,8 @@ const Row = styled(Link)`
     opacity: 0;
     transition: opacity 180ms ease;
   }
+  .project-tech { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .project-tech > span { font-size: 10px; color: #91aaaF; border: 1px solid rgba(145,170,175,.16); border-radius: 20px; padding: 3px 8px; }
   .project-number { font-size: 13px; color: #788d9d; font-variant-numeric: tabular-nums; }
   .project-copy { display: grid; gap: 8px; }
   .project-title { font-size: 19px; font-weight: 500; letter-spacing: -.025em; }
@@ -52,7 +57,7 @@ const Row = styled(Link)`
     .project-arrow { color: #50e3c2; transform: translate(2px, -2px); }
   }
   &:focus-visible { outline: 2px solid #50e3c2; outline-offset: 3px; }
-  @media (max-width: 480px) {
+  @media (max-width: 767px) {
     grid-template-columns: minmax(0, 1fr) 24px;
     padding: 20px 12px;
     margin-inline: -12px;
@@ -60,4 +65,17 @@ const Row = styled(Link)`
     .project-number { display: none; }
     .project-title { font-size: 18px; }
   }
+`
+
+const Thumbnail = styled(PortfolioImage)`
+  position: relative;
+  width: 96px;
+  height: 76px;
+  border-radius: 10px;
+  border: 1px solid rgba(160,190,210,.15);
+  transition: transform 250ms ease;
+  img { object-position: top; }
+  ${Row}:hover &, ${Row}:focus-visible & { transform: translateY(-3px) rotate(-2deg); }
+  @media (max-width: 767px) { display: none; }
+  @media (prefers-reduced-motion: reduce) { transition: none; ${Row}:hover & { transform: none; } }
 `

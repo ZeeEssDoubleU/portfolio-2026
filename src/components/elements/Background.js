@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 // import components
+import Atmosphere from "./Atmosphere"
 import Icon from "../Icons/Icon"
 import { InternalLink } from "./CustomLink"
 
@@ -13,6 +14,8 @@ export const Background = () => {
 
   return (
     <Container className="site-background" bgSvgUrl="/assets/stripes.svg">
+      <Atmosphere />
+      <p className="hero-eyebrow">design minded. detail driven.</p>
       <Icon name="logo-landing" className="logo" />
       <InternalLink
         href="about"
@@ -34,6 +37,17 @@ const Container = styled.div`
   height: 100svh;
   width: 100%;
   background: black bottom/cover url(${props => props.bgSvgUrl});
+  overflow: hidden;
+  .hero-eyebrow {
+    position: absolute;
+    top: 12%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: .18em;
+    color: #91aaaF;
+  }
   /* svg icons down in component */
   .logo {
     position: absolute;

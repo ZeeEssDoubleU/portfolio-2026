@@ -10,7 +10,7 @@ export default function Projects() {
   const [expanded, setExpanded] = useState(false)
   const reduced = useReducedMotion()
   const visibleProjects = projects.filter(project => project.slug !== 'github-issue-tracker')
-  const row = (project, index) => <Project key={project.slug} index={index} title={project.title} description={project.description} slug={project.slug} />
+  const row = (project, index) => <Project key={project.slug} index={index} title={project.title} description={project.description} slug={project.slug} image={project.image} tech={project.tech} />
   return <Section id="projects">
     <Header>selected projects</Header>
     <Body>

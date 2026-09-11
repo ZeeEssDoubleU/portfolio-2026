@@ -65,6 +65,10 @@ const Container = styled.div`
       opacity: 0;
       transition: opacity 180ms ease;
     }
+    &[aria-current='location'] {
+      color: #50e3c2;
+      &::before { opacity: .65; }
+    }
     &:hover, &:focus-visible {
       border-color: rgba(80,227,194,.23);
       &::before { opacity: 1; }
