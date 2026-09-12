@@ -10,6 +10,25 @@ import { ProjectTransitionContext } from '../utils/ProjectTransitionContext'
 
 export default function Layout({ children, location }) {
   const router = useRouter()
+  useLayoutEffect(() => {
+    const entry = window.__portfolioRestore
+    if (!entry) return
+    const target = document.getElementById(entry.hash.slice(1))
+    const y = entry.saved ? entry.saved.y : target ? Math.max(0, target.getBoundingClientRect().top + scrollY - (target.id === 'landing' ? 0 : 80)) : 0
+    window.scrollTo({ left: entry.saved?.x || 0, top: y, behavior: 'instant' })
+  }, [])
+  useEffect(() => {
+    const entry = window.__portfolioRestore
+    if (!entry) return
+    const frame = requestAnimationFrame(() => {
+      // React has adopted the initial layout. Restore the address without
+      // navigating again or asking Next.js to scroll to its hash a second time.
+      history.replaceState(history.state, '', entry.url)
+      delete document.documentElement.dataset.portfolioExpanded
+      delete window.__portfolioRestore
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [])
   const [desktopModal, setDesktopModal] = useState(false)
   const destination = useRef(null)
   useEffect(() => {
@@ -126,14 +145,22 @@ const Modal = styled.div`
   inset: 0;
   overflow: hidden;
   pointer-events: auto;
+  border: 1px solid rgba(157,191,210,.24);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
   background: rgba(0, 3, 8, .9);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   @media (min-width: 768px) {
     inset: 1rem auto;
-    left: 12.5%;
-    width: 75%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: calc(${props => props.theme.insetWidth} + 32px);
     border-radius: 20px;
+  }
+  @media (min-width: ${props => props.theme.desktop + 'px'}) {
+    left: 55%;
+    width: calc(90% - 32px);
   }
 `
 const Panel = styled(motion.div)`

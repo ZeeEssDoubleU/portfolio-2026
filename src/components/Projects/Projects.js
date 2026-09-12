@@ -1,5 +1,5 @@
 import projects from '../../data/projects.json'
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import styled from 'styled-components'
 import { motion, useReducedMotion } from 'framer-motion'
 import StyledButton from '../elements/StyledButton'
@@ -8,9 +8,12 @@ import { Layout, Header, Body } from '../../styles/elements'
 
 export default function Projects() {
   const [expanded, setExpanded] = useState(false)
+  useLayoutEffect(() => {
+    if (window.__portfolioRestore?.saved?.expanded) setExpanded(true)
+  }, [])
   const reduced = useReducedMotion()
   const visibleProjects = projects.filter(project => project.slug !== 'github-issue-tracker')
-  const row = (project, index) => <Project key={project.slug} index={index} title={project.title} description={project.description} slug={project.slug} />
+  const row = (project, index) => <Project key={project.slug} index={index} title={project.title} description={project.description} slug={project.slug} image={project.image} tech={project.tech} />
   return <Section id="projects">
     <Header>selected projects</Header>
     <Body>
@@ -23,7 +26,7 @@ export default function Projects() {
         {visibleProjects.slice(5).map((project, index) => row(project, index + 5))}
       </motion.div>
     </Body>
-    {visibleProjects.length > 5 && <StyledButton icon={expanded ? undefined : 'plus'}
+    {visibleProjects.length > 5 && <StyledButton icon={expanded ? 'minus' : 'plus'}
       aria-label={expanded ? 'show less projects' : 'show more projects'}
       aria-expanded={expanded} aria-controls="additional-projects"
       onClick={() => setExpanded(value => !value)}>

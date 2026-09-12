@@ -8,6 +8,14 @@ export const Layout = styled.section`
   padding: 28px 22px;
   margin: 0 auto 24px;
   scroll-margin-top: 100px;
+  transition: opacity 650ms ease, translate 650ms cubic-bezier(.22,.61,.36,1), border-color 250ms ease;
+  &[data-reveal='waiting'] { opacity: 0; translate: 0 22px; }
+  &[data-reveal='visible'] { opacity: 1; translate: 0 0; }
+  &:hover { border-color: rgba(157,191,210,.28); }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &[data-reveal] { opacity: 1; translate: none; }
+  }
   overflow: hidden;
   border: 1px solid rgba(157, 191, 210, .16);
   border-radius: 24px;
@@ -53,6 +61,16 @@ export const Header = styled.h2`
   font-size: clamp(26px, 3vw, 34px);
   letter-spacing: -.035em;
   color: #ecf6f5;
+  &::before {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: #50e3c2;
+    align-self: center;
+  }
+  #about &::before { content: '01 /'; }
+  #projects &::before { content: '02 /'; }
+  #contact &::before { content: '03 /'; }
   &::after {
     content: '';
     flex: 1;

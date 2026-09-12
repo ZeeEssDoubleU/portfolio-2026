@@ -43,7 +43,7 @@ export const Wrapper = styled.button`
   border-radius: 10px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 200ms ease, transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
   .action-grid {
     display: grid;
     grid-template-columns: auto 0;
@@ -59,8 +59,13 @@ export const Wrapper = styled.button`
       transition: opacity 0.2s;
     }
   }
+  @media (prefers-reduced-motion: reduce) { transition: none; &:hover { transform: none; } }
+  &:active { transform: translateY(0); }
   &:focus-visible { outline: 2px solid #50e3c2; outline-offset: 4px; }
   &:hover {
+    transform: translateY(-2px);
+    border-color: rgba(80,227,194,.5);
+    box-shadow: 0 8px 24px rgba(80,227,194,.07);
     color: ${props => props.theme.appGreen};
     .action-text {
       margin-right: 25px;
