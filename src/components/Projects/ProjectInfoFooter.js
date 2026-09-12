@@ -9,24 +9,34 @@ export default function ProjectInfoFooter({title}) {
      event.preventDefault()
      closeProject()
    }
- }} aria-label={`close ${title} project info panel`}>close</Link></Container>
+ }} aria-label={`close ${title} project info panel`}><span aria-hidden="true">×</span>close</Link></Container>
 }
 const Container = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-
-  display: grid;
-  grid-template-rows: 70px;
+  height: 70px;
+  display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, transparent, rgba(0,3,8,.8));
   a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 16px;
+    color: #8da3af;
+    font-size: 14px;
+    text-decoration: none;
+    background: transparent;
     border: none;
-
-    color: ${props => props.theme.appTextWhiteL};
-    font-size: 20px;
-    background: black;
     cursor: pointer;
+    transition: color 180ms ease;
+    span { font-size: 20px; font-weight: 300; }
+    &:hover { color: #50e3c2; }
+    &:focus-visible { outline: 1px solid #50e3c2; outline-offset: 2px; border-radius: 6px; }
   }
 `

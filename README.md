@@ -8,7 +8,7 @@ Zak (Zachary) Williams' personal portfolio, migrated from Gatsby to Next.js whil
 
 ## Preview scope
 
-This branch is an isolated design exploration. Production remains on `main` and https://zsw-portfolio-2026.netlify.app/. Deploy this branch only to the separate `zsw-portfolio-2026-preview` Netlify project (ID `d9598791-09cf-4b50-ad57-d6c6efde2296`).
+This branch is an isolated design exploration. Production remains on `main` and https://zswportfolio.netlify.app/. Deploy this branch only to the separate `zsw-portfolio-2026-preview` Netlify project (ID `d9598791-09cf-4b50-ad57-d6c6efde2296`).
 
 The design adds dark glass cards, desktop-only 10px backdrop blur, updated typography and buttons, and fully clickable project rows with hover/focus illumination. Small screens and reduced-motion/transparency preferences use an opaque fallback. Filters are not animated. Real-device frame rates should be reviewed before promoting the design.
 
@@ -88,3 +88,7 @@ The second design preview adds transform-only, 24-second ambient light drift, on
 ### Dust particle experiment (preview only)
 
 The fixed background includes a decorative 2D canvas with 18–64 softly glowing teal, blue and pale dust particles. Cached sprites, a 30fps limit and a 1.5x pixel-density cap keep rendering bounded. The canvas ignores pointer input. Animation pauses while a project is open or the tab is hidden; reduced-motion users see a static field. No particle package or paid service is required.
+
+### Main-address migration
+
+The 2026 production address is `https://zswportfolio.netlify.app/`; the original Gatsby site is archived at `https://zswportfolio-2019.netlify.app/`. The `public/sw.js` endpoint only retires previously installed Gatsby offline workers on the reused origin; this Next.js application does not register an offline worker.
