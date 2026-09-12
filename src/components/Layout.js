@@ -6,6 +6,8 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Background } from './elements/Background'
 import Home from '../pages/index'
 import { PortfolioScrollContext } from '../utils/PortfolioScrollContext'
+import { lockMobileProjectScroll } from '../utils/lockMobileProjectScroll'
+import { ProjectDismissContext } from '../utils/ProjectDismissContext'
 import { ProjectTransitionContext } from '../utils/ProjectTransitionContext'
 
 export default function Layout({ children, location }) {
@@ -31,6 +33,7 @@ export default function Layout({ children, location }) {
   }, [])
   const [desktopModal, setDesktopModal] = useState(false)
   const destination = useRef(null)
+  const closingHash = useRef(null)
   useEffect(() => {
     const query = window.matchMedia('(min-width: 768px)')
     const update = () => setDesktopModal(query.matches)
@@ -45,12 +48,13 @@ export default function Layout({ children, location }) {
   const savedScroll = useRef(null)
   const rememberScroll = () => { savedScroll.current = { x: window.scrollX, y: window.scrollY } }
   const blocked = isProject || exitingProject
-  // Lock the document for the entire overlay lifetime, including image loading
-  // and the exit animation. Freeze the portfolio at its captured viewport offset,
-  // then restore document scrolling only after the overlay has disappeared.
+  // Keep the lock through image loading and the complete exit animation.
   useLayoutEffect(() => {
     if (!blocked) return
     const position = savedScroll.current || { x: window.scrollX, y: window.scrollY }
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      return lockMobileProjectScroll(position)
+    }
     const layer = shell.current
     layer.style.position = 'fixed'
     layer.style.top = `-${position.y}px`
@@ -75,12 +79,24 @@ export default function Layout({ children, location }) {
     }
   }, [blocked])
   useEffect(() => {
+    if (!blocked) savedScroll.current = null
+    if (!blocked && closingHash.current) {
+      history.replaceState(history.state, '', '/' + closingHash.current)
+      closingHash.current = null
+    }
     if (!blocked && destination.current) {
       const target = destination.current
       destination.current = null
       scrollToAnim(false, target)
     }
   }, [blocked])
+  const closeProject = hash => {
+    destination.current = hash || null
+    closingHash.current = hash || '#projects'
+    // A hash route makes Next.js run scrollIntoView during the fade. Restore the
+    // address only after exit, and scroll to a menu destination after unlocking.
+    router.push('/', undefined, { scroll: false })
+  }
   useEffect(() => {
     if (!isProject) return
     const dismiss = event => {
@@ -94,7 +110,7 @@ export default function Layout({ children, location }) {
       destination.current = hash && document.querySelector(hash) ? hash : null
       event.preventDefault()
       event.stopPropagation()
-      router.push('/' + (destination.current || '#projects'), undefined, { scroll: false })
+      closeProject(destination.current)
     }
     document.addEventListener('click', dismiss, true)
     document.addEventListener('keydown', dismiss, true)
@@ -104,7 +120,7 @@ export default function Layout({ children, location }) {
     }
   }, [isProject, desktopModal, router])
   const portfolio = pathname === '/' || isProject || exitingProject
-  return <PortfolioScrollContext.Provider value={rememberScroll}>
+  return <ProjectDismissContext.Provider value={closeProject}><PortfolioScrollContext.Provider value={rememberScroll}>
     <div ref={shell} data-portfolio-layer inert={blocked && !desktopModal ? true : undefined} aria-hidden={blocked && !desktopModal ? true : undefined}>
       <Background paused={blocked} />
       {portfolio ? <Home background={blocked} /> : children}
@@ -112,7 +128,7 @@ export default function Layout({ children, location }) {
     <AnimatePresence onExitComplete={() => setExitingProject(false)}>
       {isProject && <ProjectOverlay key={pathname} onMounted={() => setExitingProject(true)}>{children}</ProjectOverlay>}
     </AnimatePresence>
-  </PortfolioScrollContext.Provider>
+  </PortfolioScrollContext.Provider></ProjectDismissContext.Provider>
 }
 function ProjectOverlay({ children, onMounted }) {
   const [ready, setReady] = useState(false)

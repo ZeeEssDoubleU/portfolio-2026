@@ -19,7 +19,7 @@ const About = (props) => {
 
 	return (
 		<Section id="about">
-			<Header>about</Header>
+			<Header>about me</Header>
 			<Bio>
 				<Selfie
 					title="selfie"
@@ -101,32 +101,19 @@ const Bio = styled(Body)`
 	}
 `;
 const Selfie = styled(Img)`
-	/* stretch image across background */
-	position: relative;
-	height: 240px;
-	width: 100%;
-	/* creates fade to black effect on background image */
-	mask-image: linear-gradient(
-		to bottom,
-		transparent -10%,
-		black,
-		transparent 110%
-	);
-	img {
-		object-position: 80% 50% !important;
-	}
-	/* creates fade to black effect on background image */
-	@media (min-width: ${(props) => props.theme.tablet + "px"}) {
-		position: relative;
-	height: 240px;
-		width: 240px;
-		mask-image: radial-gradient(black 30%, transparent 100%);
-		img {
-			object-position: 100% 50% !important;
-		}
-		border-radius: 50%;
-		margin-right: 36px;
-	}
+  position: relative;
+  height: 240px;
+  width: 100%;
+  border: 1px solid rgba(157,191,210,.24);
+  border-radius: 20px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+  img { object-position: 80% 50% !important; }
+  @media (min-width: ${(props) => props.theme.tablet + "px"}) {
+    width: 240px;
+    border-radius: 50%;
+    margin-right: 36px;
+    img { object-position: 100% 50% !important; }
+  }
 `;
 const Highlight = styled.span`
 	color: #50e3c2;

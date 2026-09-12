@@ -1,7 +1,15 @@
 import Link from 'next/link'
+import { useContext } from 'react'
+import { ProjectDismissContext } from '../../utils/ProjectDismissContext'
 import styled from 'styled-components'
 export default function ProjectInfoFooter({title}) {
- return <Container><Link scroll={false} href="/#projects" aria-label={`close ${title} project info panel`}>close</Link></Container>
+ const closeProject = useContext(ProjectDismissContext)
+ return <Container><Link scroll={false} href="/#projects" onClick={event => {
+   if (closeProject && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+     event.preventDefault()
+     closeProject()
+   }
+ }} aria-label={`close ${title} project info panel`}>close</Link></Container>
 }
 const Container = styled.div`
   position: absolute;

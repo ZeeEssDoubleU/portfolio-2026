@@ -70,7 +70,7 @@ export default function ParticleDust({ paused = false }) {
       const count = Math.min(64, Math.max(18, Math.round(width * height / 22000)))
       particles = Array.from({ length: count }, (_, index) => ({
         x: Math.random() * width, y: Math.random() * height,
-        size: 6 + Math.random() * 12, opacity: .24 + Math.random() * .42,
+        size: 7 + Math.random() * 13, opacity: .32 + Math.random() * .44,
         speed: 3 + Math.random() * 5, phase: Math.random() * Math.PI * 2,
         color: index % sprites.length
       }))
