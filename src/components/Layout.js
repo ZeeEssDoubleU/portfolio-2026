@@ -10,6 +10,25 @@ import { ProjectTransitionContext } from '../utils/ProjectTransitionContext'
 
 export default function Layout({ children, location }) {
   const router = useRouter()
+  useLayoutEffect(() => {
+    const entry = window.__portfolioRestore
+    if (!entry) return
+    const target = document.getElementById(entry.hash.slice(1))
+    const y = entry.saved ? entry.saved.y : target ? Math.max(0, target.getBoundingClientRect().top + scrollY - (target.id === 'landing' ? 0 : 80)) : 0
+    window.scrollTo({ left: entry.saved?.x || 0, top: y, behavior: 'instant' })
+  }, [])
+  useEffect(() => {
+    const entry = window.__portfolioRestore
+    if (!entry) return
+    const frame = requestAnimationFrame(() => {
+      // React has adopted the initial layout. Restore the address without
+      // navigating again or asking Next.js to scroll to its hash a second time.
+      history.replaceState(history.state, '', entry.url)
+      delete document.documentElement.dataset.portfolioExpanded
+      delete window.__portfolioRestore
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [])
   const [desktopModal, setDesktopModal] = useState(false)
   const destination = useRef(null)
   useEffect(() => {

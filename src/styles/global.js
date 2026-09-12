@@ -2,7 +2,11 @@
 import { createGlobalStyle } from "styled-components"
 
 export default createGlobalStyle`
-      html { scrollbar-gutter: stable; }
+      html { scrollbar-gutter: stable; scroll-behavior: auto; }
+      html[data-portfolio-expanded='true'] #additional-projects {
+         height: auto !important;
+         opacity: 1 !important;
+      }
       html, body {
          font-family: Avenir, "Avenir Next", system-ui, sans-serif;
          background: black;

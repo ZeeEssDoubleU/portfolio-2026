@@ -1,5 +1,5 @@
 import projects from '../../data/projects.json'
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import styled from 'styled-components'
 import { motion, useReducedMotion } from 'framer-motion'
 import StyledButton from '../elements/StyledButton'
@@ -8,6 +8,9 @@ import { Layout, Header, Body } from '../../styles/elements'
 
 export default function Projects() {
   const [expanded, setExpanded] = useState(false)
+  useLayoutEffect(() => {
+    if (window.__portfolioRestore?.saved?.expanded) setExpanded(true)
+  }, [])
   const reduced = useReducedMotion()
   const visibleProjects = projects.filter(project => project.slug !== 'github-issue-tracker')
   const row = (project, index) => <Project key={project.slug} index={index} title={project.title} description={project.description} slug={project.slug} image={project.image} tech={project.tech} />
