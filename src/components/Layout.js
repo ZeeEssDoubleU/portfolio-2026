@@ -106,7 +106,7 @@ export default function Layout({ children, location }) {
   const portfolio = pathname === '/' || isProject || exitingProject
   return <PortfolioScrollContext.Provider value={rememberScroll}>
     <div ref={shell} data-portfolio-layer inert={blocked && !desktopModal ? true : undefined} aria-hidden={blocked && !desktopModal ? true : undefined}>
-      <Background />
+      <Background paused={blocked} />
       {portfolio ? <Home background={blocked} /> : children}
     </div>
     <AnimatePresence onExitComplete={() => setExitingProject(false)}>

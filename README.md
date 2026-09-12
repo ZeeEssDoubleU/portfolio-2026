@@ -84,3 +84,7 @@ Section headings and actions are lowercase. The hero background is fixed on all 
 Project navigation disables Next.js automatic scrolling. Opening a project freezes the retained portfolio at its captured scroll offset and locks document scrolling until the exit animation completes. Only project content scrolls; closing restores the saved document offset. The project list has a 400ms height transition with reversible show more/show less controls and retains expansion while a project is open.
 
 The second design preview adds transform-only, 24-second ambient light drift, one-time 650ms card entrances, desktop project thumbnails and technology tags, active section navigation, and small hover lifts. Cards already on screen are never hidden when opening a project. Reduced-motion preferences disable ambient drift and entrance movement; hidden tabs pause ambient animation. No paid services or new runtime dependencies are used.
+
+### Dust particle experiment (preview only)
+
+The fixed background includes a decorative 2D canvas with 18–64 softly glowing teal, blue and pale dust particles. Cached sprites, a 30fps limit and a 1.5x pixel-density cap keep rendering bounded. The canvas ignores pointer input. Animation pauses while a project is open or the tab is hidden; reduced-motion users see a static field. No particle package or paid service is required.
