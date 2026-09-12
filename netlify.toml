@@ -4,10 +4,15 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  NEXT_PUBLIC_SITE_URL = "https://zsw-portfolio-2026.netlify.app"
+  NEXT_PUBLIC_SITE_URL = "https://zswportfolio.netlify.app"
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
 [[headers]]
   for = "/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-store"

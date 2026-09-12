@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 // import components
+import ParticleDust from "./ParticleDust"
 import Atmosphere from "./Atmosphere"
 import Icon from "../Icons/Icon"
 import { InternalLink } from "./CustomLink"
@@ -9,12 +10,13 @@ import { InternalLink } from "./CustomLink"
 // **********
 // component
 // **********
-export const Background = () => {
+export const Background = ({ paused = false }) => {
 
 
   return (
     <Container className="site-background" bgSvgUrl="/assets/stripes.svg">
       <Atmosphere />
+      <ParticleDust paused={paused} />
       <p className="hero-eyebrow">design minded. detail driven.</p>
       <Icon name="logo-landing" className="logo" />
       <InternalLink

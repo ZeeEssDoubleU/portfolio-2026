@@ -4,7 +4,7 @@ const description = 'Zachary Williams is a web developer in New York City. Conta
 export default function SEO(props) {
   const { asPath } = useRouter()
   const title = `${props.title || 'Web Developer | New York City'} | Zachary Williams`
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://zsw-portfolio-2026.netlify.app"
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://zswportfolio.netlify.app"
   const url = origin ? new URL(asPath.split(/[?#]/)[0], origin).href : undefined
   return <Head>
     <title>{title}</title>

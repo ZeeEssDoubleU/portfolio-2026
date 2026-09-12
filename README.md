@@ -2,7 +2,7 @@
 
 Zak (Zachary) Williams' personal portfolio, migrated from Gatsby to Next.js while retaining the original design, project history, and URLs.
 
-- **Website:** https://zsw-portfolio-2026.netlify.app/
+- **Website:** https://zswportfolio.netlify.app/
 - **Application branch:** [`main`](https://github.com/ZeeEssDoubleU/portfolio-2026/tree/main)
 - **Original project:** [portfolio-2019](https://github.com/ZeeEssDoubleU/portfolio-2019)
 
@@ -68,3 +68,9 @@ The deployment uses the existing Free plan and Netlify subdomain. Usage limits s
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+## Current design and archive
+
+Production includes the glass cards, atmospheric dust, updated project layouts, mobile scroll-lock fixes, and saved refresh positions. The separate design preview remains at https://zsw-portfolio-2026-preview.netlify.app/.
+
+The original Gatsby portfolio is preserved at https://zswportfolio-2019.netlify.app/. The `public/sw.js` endpoint retires legacy offline workers from the reused main address; the Next.js application does not register one.

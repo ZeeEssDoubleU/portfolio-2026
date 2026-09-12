@@ -17,24 +17,9 @@ import { ProjectTransitionContext } from "../../utils/ProjectTransitionContext"
 const ProjectInfo = props => {
   const onImageReady = useContext(ProjectTransitionContext)
 
-  // array to display tech stack below in render
-  const techArray = props.tech.map((tech, index) => (
-    <li key={index}>
-      <span>+</span>
-      {tech}
-    </li>
-  ))
-
-  // array to display tech stack below in render
-  const featuresArray = props.features.map((feature, index) => (
-    <li key={index}>
-      <span>&#10003;</span>
-      {feature}
-    </li>
-  ))
-
   return (
     <Container>
+      <Main className="project-info" tabIndex={0} aria-label="scroll project details">
       <Thumbnail
         synchronized
         onReady={onImageReady}
@@ -42,11 +27,11 @@ const ProjectInfo = props => {
         src={props.image.src}
         alt={`preview image of ${props.title} project`}
       />
-      <Main className="project-info" tabIndex={0} aria-label="scroll project details">
+
         <Grid>
           <Header>
             <h1 className="project-info-title">{props.title}</h1>
-            <div className="project-info-desc">{props.description}</div>
+            <p className="project-summary">{props.description}</p>
           </Header>
           <Links>
             <ExternalLink
@@ -62,15 +47,23 @@ const ProjectInfo = props => {
               <ViewCode>view code</ViewCode>
             </ExternalLink>
           </Links>
-          <div className="project-info-desc">{props.moreInfo}</div>
-          <div className="project-info-list">
-            <h3>features</h3>
-            <ul>{featuresArray}</ul>
-          </div>
-          <div className="project-info-list">
-            <h3>development tools</h3>
-            <ul>{techArray}</ul>
-          </div>
+          {props.moreInfo && <Overview>
+            <h2>the project</h2>
+            <p>{props.moreInfo}</p>
+          </Overview>}
+          <Details>
+            <DetailSection>
+              <h2>features</h2>
+              <ul className="feature-list">{props.features.map(feature => <li key={feature}>
+                <span className="feature-check" aria-hidden="true">✓</span>
+                <span>{feature}</span>
+              </li>)}</ul>
+            </DetailSection>
+            <DetailSection>
+              <h2>development tools</h2>
+              <ul className="tool-list">{props.tech.map(tool => <li key={tool}>{tool}</li>)}</ul>
+            </DetailSection>
+          </Details>
         </Grid>
       </Main>
       <Footer title={props.title} />
@@ -167,21 +160,6 @@ const Grid = styled.div`
   text-align: center;
   padding: 96px 24px 24px;
   background: linear-gradient(to bottom, transparent 0, rgba(0,3,8,.75) 216px);
-  .project-info-desc {
-    white-space: pre-wrap;
-  }
-  .project-info-list {
-    ul {
-      width: fit-content;
-      padding: 0;
-      margin: 8px auto 0;
-      li {
-        display: grid;
-        text-align: left;
-        grid-template-columns: 20px auto;
-      }
-    }
-  }
   @media (min-width: ${props => props.theme.tablet + "px"}) {
     top: 30vw;
     left: 50%;
@@ -190,38 +168,86 @@ const Grid = styled.div`
     background: linear-gradient(to bottom, transparent 0, rgba(0,3,8,.75) 72px);
   }
 `
-const Header = styled.div`
+const Header = styled.header`
+  max-width: 720px;
   .project-info-title {
-    font-size: 32px;
-    margin: 0.5em 0 8px;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 550;
+    letter-spacing: -.045em;
+    line-height: 1.15;
+    margin: .5em 0 18px;
+  }
+  .project-summary {
+    max-width: 54ch;
+    margin: 0 auto;
+    color: #b6c7d1;
+    font-size: clamp(16px, 1.6vw, 19px);
+    line-height: 1.75;
+    text-wrap: pretty;
+  }
+`
+const Overview = styled.section`
+  width: 100%;
+  max-width: 860px;
+  text-align: left;
+  padding: 28px 0 4px;
+  border-top: 1px solid rgba(157,191,210,.15);
+  h2 {
+    color: #50e3c2;
+    font-size: 13px;
+    letter-spacing: .06em;
+    font-weight: 500;
+    margin: 0 0 14px;
+  }
+  p { color: #b6c7d1; line-height: 1.85; text-wrap: pretty; white-space: pre-line; }
+`
+const Details = styled.div`
+  width: 100%;
+  max-width: 860px;
+  display: grid;
+  gap: 20px;
+  text-align: left;
+  padding-bottom: 28px;
+  @media (min-width: 900px) { grid-template-columns: 1.3fr 1fr; }
+`
+const DetailSection = styled.section`
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid rgba(157,191,210,.14);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(80,227,194,.04), rgba(68,94,255,.025));
+  h2 { margin: 0 0 20px; color: #e2eeef; font-size: 17px; font-weight: 500; letter-spacing: -.02em; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  .feature-list { display: grid; gap: 14px; }
+  .feature-list li { display: grid; grid-template-columns: 20px 1fr; gap: 10px; color: #b6c7d1; font-size: 15px; line-height: 1.7; }
+  .feature-check { color: #50e3c2; font-size: 14px; }
+  .tool-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tool-list li {
+    padding: 7px 12px;
+    border: 1px solid rgba(80,227,194,.17);
+    border-radius: 24px;
+    background: rgba(80,227,194,.035);
+    color: #b9d9d4;
+    font-size: 13px;
+    line-height: 1.5;
   }
 `
 const Links = styled.div`
-  display: grid;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 0 12px;
   a { text-decoration: none; }
 `
-// Wrapper styled-component pulled from Button component style
 const ViewProject = styled(Wrapper).attrs({ as: "span" })`
   display: block;
-  width: 160px;
-  padding: 20px 16px;
+  min-width: 148px;
+  padding: 16px 22px;
   white-space: nowrap;
-  border: 1px solid hsla(${props => props.theme.appBluePartial}, 0.3);
-  border-radius: 10px 10px 0 0;
-  transition: color 0.2s, border-color 0.2s;
-  &:hover {
-    border: 1px solid hsla(${props => props.theme.appGreenPartial}, 0.3);
-  }
+  border-radius: 12px;
 `
-const ViewCode = styled(Wrapper).attrs({ as: "span" })`
-  display: block;
-  width: 160px;
-  padding: 20px 16px;
-  white-space: nowrap;
-  border: 1px solid hsla(${props => props.theme.appBluePartial}, 0.3);
-  border-radius: 0 0 10px 10px;
-  transition: color 0.2s, border-color 0.2s;
-  &:hover {
-    border: 1px solid hsla(${props => props.theme.appGreenPartial}, 0.3);
-  }
+const ViewCode = styled(ViewProject)`
+  background: transparent;
+  border-color: rgba(157,191,210,.2);
+  color: #b6c7d1;
 `
