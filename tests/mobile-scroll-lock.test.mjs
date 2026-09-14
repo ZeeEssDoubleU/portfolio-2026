@@ -2,18 +2,21 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import vm from 'node:vm'
+import ts from 'typescript'
 
 test('mobile project lock contains gestures without moving the portfolio into a fixed layer', async () => {
   const listeners = new Map()
-  const source = await readFile(new URL('../src/utils/lockMobileProjectScroll.js', import.meta.url), 'utf8')
+  const source = await readFile(new URL('../src/utils/lockMobileProjectScroll.ts', import.meta.url), 'utf8')
   const events = {
     addEventListener(name, handler) { listeners.set(name, handler) },
     removeEventListener(name, handler) { if (listeners.get(name) === handler) listeners.delete(name) }
   }
   const window = { ...events, scrollX: 0, scrollY: 1200, scrollTo({left, top}) { this.scrollX = left; this.scrollY = top } }
   const context = vm.createContext({ window, document: { ...events } })
-  vm.runInContext(source.replace('export function', 'function'), context)
-  const unlock = context.lockMobileProjectScroll({ x: 0, y: 1200 })
+  const compiled = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS } }).outputText
+  context.exports = {}
+  vm.runInContext(compiled, context)
+  const unlock = context.exports.lockMobileProjectScroll({ x: 0, y: 1200 })
   const panel = { scrollHeight: 1200, clientHeight: 800, scrollTop: 100 }
   const inside = { closest: () => panel }, outside = { closest: () => null }
   const wheel = (target, deltaY) => {

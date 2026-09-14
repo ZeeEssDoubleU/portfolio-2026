@@ -16,7 +16,7 @@ The preview sends `noindex, nofollow` in HTML and response headers. It is public
 
 ## Stack and structure
 
-Next.js 16 Pages Router, React 19, styled-components 6, GSAP 3, and Framer Motion 12. The site is fully statically exported; production does not require a Node server, database, or CMS credentials.
+Next.js 16 Pages Router, TypeScript (strict mode), React 19, styled-components 6, GSAP 3, and Framer Motion 12. The site is fully statically exported; production does not require a Node server, database, or CMS credentials.
 
 | Location | Purpose |
 | --- | --- |
@@ -25,7 +25,7 @@ Next.js 16 Pages Router, React 19, styled-components 6, GSAP 3, and Framer Motio
 | `src/data/projects.json` | Project content snapshot |
 | `src/data/image-placeholders.json` | Embedded previews for image loading |
 | `public/assets/` | Local screenshots, portrait and background |
-| `src/utils/animations.js` | Header and mobile menu entrance animations |
+| `src/utils/animations.ts` | Header and mobile menu entrance animations |
 | `netlify.toml` | Build, publish directory, environment and cache settings |
 
 Eleven `/project/<slug>/` pages preserve original project URLs. The homepage lists ten projects, initially showing five. Biography and project descriptions are historical content; some external demos may no longer be available.
@@ -41,10 +41,17 @@ yarn dev
 ```
 
 ```sh
+yarn typecheck # Check all application types without generating files
 yarn build   # Export static pages to out/
 yarn test    # Check exported routes, assets and form markup
 yarn start   # Serve out/ locally
 ```
+
+## TypeScript
+
+All application components and pages use `.tsx`; utilities, styles, and Next.js configuration use `.ts`. `tsconfig.json` enables strict checking. Shared project and scroll types live in `src/types/portfolio.ts`, with typed reducer actions and styled-components theme augmentation. Run `yarn typecheck` before committing; `yarn build` also checks types.
+
+Node tooling and regression tests remain `.mjs`, and `public/sw.js` stays browser-ready JavaScript for retiring the original service worker. No application files use `@ts-nocheck` or implicit `any`.
 
 ## Content and images
 

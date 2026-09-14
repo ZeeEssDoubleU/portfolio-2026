@@ -63,3 +63,6 @@ out/
 .sites-runtime/
 .env*
 !.env.example
+
+# TypeScript incremental build cache
+*.tsbuildinfo
