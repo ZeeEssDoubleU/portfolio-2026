@@ -53,7 +53,7 @@ export default React.memo(Nav)
 // **********
 
 const Container = styled.nav`
-  will-change: transform;
+  will-change: opacity;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -64,7 +64,9 @@ const Container = styled.nav`
   overflow-y: ${props => (props.menuExpanded ? "auto" : "hidden")};
 
   background: ${props => props.theme.appBgDark};
-  transition: height 0.3s;
+  transition: height 0.3s, opacity 0.3s ease, visibility 0s ${props => (props.navVisible ? "0s" : "0.3s")};
+  visibility: ${props => (props.navVisible ? "visible" : "hidden")};
+  pointer-events: ${props => (props.navVisible ? "auto" : "none")};
   /* showNav animation */
   opacity: ${props => (props.navVisible ? "1" : "0")};
   @media (min-width: ${props => props.theme.tablet + "px"}) {
@@ -76,6 +78,8 @@ const Container = styled.nav`
     overflow-y: auto;
 
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     box-shadow: 0px 0px 10px 0px ${props => props.theme.appShadowWhite};
   }
 `
