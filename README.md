@@ -99,3 +99,9 @@ The fixed background includes a decorative 2D canvas with 18–64 softly glowing
 ### Main-address migration
 
 The 2026 production address is `https://zswportfolio.netlify.app/`; the original Gatsby site is archived at `https://zswportfolio-2019.netlify.app/`. The `public/sw.js` endpoint only retires previously installed Gatsby offline workers on the reused origin; this Next.js application does not register an offline worker.
+
+### Coordinated first reveal
+
+On an initial homepage visit, the inline head bootstrap shows the SVG logo mark immediately in its final position. A warm-white sheen sweeps left to right across only its outer ring over 700ms. The name, title, navigation, background, particles, arrow and page content then share one 420ms blur/fade after hydration, the first canvas draw, fonts, and visible image decoding. There is no minimum loading delay. The sheen runs independently and never delays the reveal.
+
+Desktop navigation no longer runs a second staggered entrance. Mobile menu expansion and project transitions retain their own interactions. Hash destinations and restored scroll positions are prepared before revealing, including visible raster images. Reduced motion disables the reveal and sheen animations. Without JavaScript the static page remains visible; a four-second fail-open timeout handles failed bundles or stalled assets.

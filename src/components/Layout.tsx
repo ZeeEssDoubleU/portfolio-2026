@@ -11,8 +11,10 @@ import { PortfolioScrollContext } from '../utils/PortfolioScrollContext'
 import { lockMobileProjectScroll } from '../utils/lockMobileProjectScroll'
 import { ProjectDismissContext } from '../utils/ProjectDismissContext'
 import { ProjectTransitionContext } from '../utils/ProjectTransitionContext'
+import useInitialReveal from '../utils/useInitialReveal'
 
 export default function Layout({ children, location }: React.PropsWithChildren<{ location: { pathname: string } }>) {
+  useInitialReveal()
   const router = useRouter()
   useLayoutEffect(() => {
     const entry = window.__portfolioRestore

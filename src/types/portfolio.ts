@@ -13,6 +13,7 @@ export interface ProjectData {
 }
 declare global {
   interface Window {
+    __revealPortfolio?: () => void
     __portfolioRestore?: { url: string; hash: string; saved: SavedScroll | null }
   }
 }

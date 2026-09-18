@@ -14,10 +14,12 @@ export const Background = ({ paused = false }) => {
 
 
   return (
-    <Container className="site-background" bgSvgUrl="/assets/stripes.svg">
-      <Atmosphere />
-      <ParticleDust paused={paused} />
-      <p className="hero-eyebrow">design minded. detail driven.</p>
+    <Container className="site-background">
+      <Scene data-entry-reveal>
+        <Atmosphere />
+        <ParticleDust paused={paused} />
+      </Scene>
+      <p className="hero-eyebrow" data-entry-reveal>design minded. detail driven.</p>
       <Icon name="logo-landing" className="logo" />
       <InternalLink
         href="about"
@@ -32,13 +34,18 @@ export const Background = ({ paused = false }) => {
 // **********
 // styles
 // **********
-const Container = styled.div<{ bgSvgUrl: string }>`
+const Scene = styled.div`
+  position: absolute;
+  inset: 0;
+  background: black bottom/cover url('/assets/stripes.svg');
+`
+const Container = styled.div`
   position: fixed;
   inset: 0;
   height: 100vh;
   height: 100svh;
   width: 100%;
-  background: black bottom/cover url(${props => props.bgSvgUrl});
+  background: black;
   overflow: hidden;
   .hero-eyebrow {
     position: absolute;

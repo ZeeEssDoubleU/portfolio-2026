@@ -33,6 +33,7 @@ const Nav = () => {
   return (
     <Container
       className="nav-bar"
+      data-entry-reveal
       aria-label="main navigation"
       navVisible={state.navVisible}
       menuExpanded={state.menuExpanded}
