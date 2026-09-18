@@ -81,3 +81,9 @@ MIT. See [LICENSE](LICENSE).
 Production includes the glass cards, atmospheric dust, updated project layouts, mobile scroll-lock fixes, and saved refresh positions. The separate design preview remains at https://zsw-portfolio-2026-preview.netlify.app/.
 
 The original Gatsby portfolio is preserved at https://zswportfolio-2019.netlify.app/. The `public/sw.js` endpoint retires legacy offline workers from the reused main address; the Next.js application does not register one.
+
+### Coordinated first reveal
+
+On an initial homepage visit, the inline head bootstrap shows the SVG logo mark immediately in its final position. A broad warm-white reflection with a soft bloom sweeps left to right across its outer ring over 1.3 seconds, after a 150ms lead-in. The name, title, navigation, background, particles, arrow and page content then share one 420ms blur/fade after hydration, the first canvas draw, fonts, and visible image decoding. The page waits for both the complete reflection and the visible assets, then reveals together; a fast visit takes about 1.9 seconds for the full opening.
+
+Desktop navigation no longer runs a second staggered entrance. Mobile menu expansion and project transitions retain their own interactions. Hash destinations and restored scroll positions are prepared before revealing, including visible raster images. Reduced motion disables the reveal and sheen animations. Without JavaScript the static page remains visible; a four-second fail-open timeout handles failed bundles or stalled assets.

@@ -44,6 +44,7 @@ const Frame = styled.div`
   &[data-image-state='loaded'] > div { opacity: 0; }
   &[data-image-state='loading'] > div { animation: ${breathe} 1.4s ease-in-out infinite alternate; }
   &[data-synchronized='true'] > img, &[data-synchronized='true'] > div { transition: none; }
+  &[data-entry-image] > img, &[data-entry-image] > div { transition: none; }
   @media (prefers-reduced-motion: reduce) {
     > img, > div { transition: none; }
     > div { animation: none !important; }

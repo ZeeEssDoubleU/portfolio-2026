@@ -51,7 +51,7 @@ const App = ({ background = false }) => {
     <>
       {!background && <SEO />}
       <Nav />
-      <Main id="main">
+      <Main id="main" data-entry-reveal>
         {/* ref forwarded to div INSIDE landing component */}
         <Landing ref={intersectionObserverRef} />
         <About />
