@@ -13,7 +13,7 @@ export default function Projects() {
     if (window.__portfolioRestore?.saved?.expanded) setExpanded(true)
   }, [])
   const reduced = useReducedMotion()
-  const visibleProjects = projects.filter(project => project.slug !== 'github-issue-tracker')
+  const visibleProjects = projects.filter(project => project.slug !== 'github-issue-tracker' && project.slug !== 'portfolio')
   const row = (project: ProjectData, index: number) => <Project key={project.slug} index={index} title={project.title} description={project.description} slug={project.slug} image={project.image} tech={project.tech} />
   return <Section id="projects">
     <Header>selected projects</Header>
