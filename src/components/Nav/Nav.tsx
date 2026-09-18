@@ -1,109 +1,181 @@
-import React, { useEffect, useRef } from "react"
-import styled from "styled-components"
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
-// import components
-import NavLogo from "./NavLogo"
-import NavHamburger from "./NavHamburger"
-import NavMenu from "./NavMenu"
-// import store / utils
-import { useStore } from "../../store/useStore"
-import { useAnim_showNav } from "../../utils/animations"
+import { useEffect } from "react";
+import styled from "styled-components";
+import Icon from "../Icons/Icon";
+import { InternalLink } from "../elements/CustomLink";
+import { useStore, onToggleMenu } from "../../store/useStore";
 
-// **********
-// component
-// **********
-
-const Nav = () => {
-  const { state } = useStore()
-  // targetRef pointed at Container below
-  const targetRef = useRef<HTMLElement>(null)
+export default function Nav() {
+  const { state, dispatch } = useStore();
   useEffect(() => {
-    if (!targetRef.current) return
-    // disables body scroll when navmenu expanded
-    state.menuExpanded
-      ? disableBodyScroll(targetRef.current)
-      : enableBodyScroll(targetRef.current)
-    const target = targetRef.current
-    return () => enableBodyScroll(target)
-  }, [state.menuExpanded])
-
-  // navigation animations
-  useAnim_showNav(state)
-
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onToggleMenu(dispatch, false);
+    };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, [dispatch]);
   return (
-    <Container
-      className="nav-bar"
-      data-entry-reveal
-      aria-label="main navigation"
-      navVisible={state.navVisible}
-      menuExpanded={state.menuExpanded}
-      tabIndex={-1}
-      ref={targetRef}
-    >
-      <NavGrid>
-        <NavLogo />
-        <NavHamburger />
-        <NavMenu />
-      </NavGrid>
-    </Container>
-  )
+    <Bar className="nav-bar" aria-label="main navigation" data-entry-reveal>
+      <div className="nav-inner">
+        <InternalLink href="landing" className="brand">
+          <Icon name="logo-nav" />
+          <span>
+            Zak Williams<span className="brand-role">DESIGN & DEVELOPMENT</span>
+          </span>
+        </InternalLink>
+        <button
+          className="menu-toggle"
+          aria-controls="main-menu"
+          aria-expanded={state.menuExpanded}
+          aria-label={state.menuExpanded ? "close nav menu" : "open nav menu"}
+          onClick={() => onToggleMenu(dispatch, !state.menuExpanded)}
+        >
+          {state.menuExpanded ? "Close −" : "Menu +"}
+        </button>
+        <div
+          id="main-menu"
+          className={state.menuExpanded ? "links open" : "links"}
+        >
+          <InternalLink href="projects" className="menu-link">
+            Work <span>01</span>
+          </InternalLink>
+          <InternalLink href="about" className="menu-link">
+            About <span>02</span>
+          </InternalLink>
+          <InternalLink href="contact" className="menu-link">
+            Contact <span>03</span>
+          </InternalLink>
+        </div>
+        <InternalLink href="contact" className="nav-cta">
+          Let’s make something <span aria-hidden="true">↗</span>
+        </InternalLink>
+      </div>
+    </Bar>
+  );
 }
-export default React.memo(Nav)
-
-// **********
-// styles
-// **********
-
-const Container = styled.nav<{ navVisible: boolean; menuExpanded: boolean }>`
-  will-change: opacity;
+const Bar = styled.nav`
   position: fixed;
-  z-index: 1;
   top: 0;
-  height: ${props => (props.menuExpanded ? "100%" : "80px")};
-  width: 100%;
-  border-bottom: solid 1px hsla(0, 0%, 8%, 1);
-  overflow-x: hidden;
-  overflow-y: ${props => (props.menuExpanded ? "auto" : "hidden")};
-
-  background: ${props => props.theme.appBgDark};
-  transition: height 0.3s, opacity 0.3s ease, visibility 0s ${props => (props.navVisible ? "0s" : "0.3s")};
-  visibility: ${props => (props.navVisible ? "visible" : "hidden")};
-  pointer-events: ${props => (props.navVisible ? "auto" : "none")};
-  /* showNav animation */
-  opacity: ${props => (props.navVisible ? "1" : "0")};
-  @media (min-width: ${props => props.theme.tablet + "px"}) {
-    background: hsla(${props => props.theme.appBgDarkPartial}, 0.9);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background: #05080de8;
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid #accfd214;
+  .nav-inner {
+    height: 90px;
+    width: calc(100% - 112px);
+    max-width: 1320px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
   }
-  @media (min-width: ${props => props.theme.desktop + "px"}) {
-    height: 100%;
-    width: 10%;
-    overflow-y: auto;
-
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    box-shadow: 0px 0px 10px 0px ${props => props.theme.appShadowWhite};
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #e0ecec;
+    font-size: 14px;
+    font-weight: 500;
   }
-`
-const NavGrid = styled.div`
-  height: 100%;
-  max-width: ${props => props.theme.insetWidth};
-  padding: 0 24px;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: 80px auto 80px;
-  justify-content: space-between;
-  align-items: center;
-
-  -webkit-overflow-scrolling: touch;
-  @media (min-width: ${props => props.theme.desktop + "px"}) {
-    padding: 0;
-    justify-items: center;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 144px auto 144px;
-    justify-content: center;
-    grid-row-gap: 30px;
+  .brand svg {
+    width: 38px;
+    height: 38px;
   }
-`
+  .brand-role {
+    display: block;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.1em;
+    color: #758d98;
+    margin-top: 3px;
+  }
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .menu-link {
+    font-size: 12px;
+    color: #a4b8bf;
+    transition: color 0.2s;
+  }
+  .menu-link span {
+    font:
+      8px ui-monospace,
+      monospace;
+    color: #4c626d;
+    margin-left: 3px;
+    vertical-align: super;
+  }
+  .menu-link:hover,
+  .menu-link[aria-current="location"] {
+    color: #50e3c2;
+  }
+  .nav-cta {
+    font-size: 12px;
+    color: #c5d7d8;
+    border-bottom: 1px solid #79959855;
+    padding: 10px 0;
+  }
+  .nav-cta span {
+    color: #50e3c2;
+    margin-left: 16px;
+  }
+  .menu-toggle {
+    display: none;
+  }
+  @media (max-width: 1000px) {
+    .nav-inner {
+      width: calc(100% - 64px);
+    }
+    .nav-cta {
+      display: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .nav-inner {
+      width: calc(100% - 40px);
+      height: 76px;
+    }
+    .brand svg {
+      width: 32px;
+      height: 32px;
+    }
+    .brand {
+      font-size: 12px;
+    }
+    .brand-role {
+      font-size: 7px;
+    }
+    .menu-toggle {
+      display: block;
+      border: 1px solid #829cab44;
+      border-radius: 6px;
+      color: #bdcccf;
+      background: transparent;
+      padding: 8px 12px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .links {
+      display: none;
+      position: absolute;
+      top: 76px;
+      left: 0;
+      right: 0;
+      background: #090e16;
+      border-bottom: 1px solid #799baa33;
+      padding: 22px 24px;
+    }
+    .links.open {
+      display: flex;
+      justify-content: space-between;
+    }
+    .menu-link {
+      font-size: 16px;
+    }
+  }
+`;

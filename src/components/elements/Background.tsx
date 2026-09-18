@@ -1,97 +1,39 @@
-import React from "react"
-import styled from "styled-components"
-
-// import components
-import ParticleDust from "./ParticleDust"
-import Atmosphere from "./Atmosphere"
-import Icon from "../Icons/Icon"
-import { InternalLink } from "./CustomLink"
-
-// **********
-// component
-// **********
-export const Background = ({ paused = false }) => {
-
-
-  return (
-    <Container className="site-background">
-      <Scene data-entry-reveal>
-        <Atmosphere />
-        <ParticleDust paused={paused} />
-      </Scene>
-      <p className="hero-eyebrow" data-entry-reveal>design minded. detail driven.</p>
-      <Icon name="logo-landing" className="logo" />
-      <InternalLink
-        href="about"
-        cancelParam={() => window.scrollY <= window.innerHeight}
-      >
-        <Icon name="arrow-down" className="arrow-down" />
-      </InternalLink>
-    </Container>
-  )
-}
-
-// **********
-// styles
-// **********
+import styled from "styled-components";
+import Atmosphere from "./Atmosphere";
+import ParticleDust from "./ParticleDust";
+export const Background = ({ paused = false }) => (
+  <Scene className="site-background" data-entry-reveal aria-hidden="true">
+    <Atmosphere />
+    <ParticleDust paused={paused} />
+    <div className="grid" />
+  </Scene>
+);
 const Scene = styled.div`
-  position: absolute;
-  inset: 0;
-  background: black bottom/cover url('/assets/stripes.svg');
-`
-const Container = styled.div`
   position: fixed;
   inset: 0;
-  height: 100vh;
-  height: 100svh;
-  width: 100%;
-  background: black;
+  z-index: 0;
+  pointer-events: none;
   overflow: hidden;
-  .hero-eyebrow {
+  background: #05080d;
+  &::before {
+    content: "";
     position: absolute;
-    top: 12%;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 11px;
-    letter-spacing: .18em;
-    color: #91aaaF;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 85% 20%, #415efa13, transparent 50%),
+      radial-gradient(ellipse at 5% 60%, #50e3c20a, transparent 55%);
   }
-  /* svg icons down in component */
-  .logo {
+  .grid {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width: 70%;
-    max-width: calc(0.4 * 100vh);
-    max-height: 868px;
+    inset: 0;
+    opacity: 0.22;
+    background-image:
+      linear-gradient(#7996ad14 1px, transparent 1px),
+      linear-gradient(90deg, #7996ad14 1px, transparent 1px);
+    background-size: 100px 100px;
+    mask-image: linear-gradient(transparent, black 60%, transparent);
   }
-  .arrow-down {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-
-    cursor: pointer;
-    transition: transform 0.2s;
-    &:hover {
-      transform: translateX(-50%) scale(1.2);
-    }
+  .particle-dust {
+    opacity: 0.5;
   }
-  @media (min-width: ${props => props.theme.tablet + "px"}) {
-    position: fixed;
-    will-change: transform;
-    overflow: hidden;
-    height: 100vh;
-  }
-  @media (min-width: ${props => props.theme.desktop + "px"}) {
-    width: 90%;
-    margin-left: 10%;
-  }
-`
-
-// **********
-// query
-// **********
+`;

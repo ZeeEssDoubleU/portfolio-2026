@@ -1,82 +1,270 @@
-import type { ProjectData } from '../../types/portfolio'
-import React, { useContext } from 'react'
-import { PortfolioScrollContext } from '../../utils/PortfolioScrollContext'
-import styled from 'styled-components'
-import Link from 'next/link'
-import PortfolioImage from '../PortfolioImage'
-
-export default function Project({ className, title, description, slug, index, image, tech }: Pick<ProjectData, "title" | "description" | "slug" | "image" | "tech"> & { className?: string; index: number }) {
-  const rememberScroll = useContext(PortfolioScrollContext)
-  return <Row onNavigate={rememberScroll} scroll={false} className={className} href={`/project/${slug}/`} aria-label={`show ${title} project info panel`}>
-    <span className="project-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-    <Thumbnail src={image.src} alt="" />
-    <span className="project-copy">
-      <span className="project-title">{title}</span>
-      <span className="project-description">{description}</span>
-      <span className="project-tech">{tech.slice(0,3).map(item => <span key={item}>{item}</span>)}</span>
-    </span>
-    <span className="project-arrow" aria-hidden="true">↗</span>
-  </Row>
+import type { ProjectData } from "../../types/portfolio";
+import { useContext } from "react";
+import { PortfolioScrollContext } from "../../utils/PortfolioScrollContext";
+import styled from "styled-components";
+import Link from "next/link";
+import PortfolioImage from "../PortfolioImage";
+const categories: Record<string, string> = {
+  mathe: "BRAND WEBSITE",
+  "street-eats": "WEB APPLICATION",
+  portfolio: "PERSONAL WEBSITE",
+  watchstuff: "VIDEO APPLICATION",
+  "git-the-issue": "DEVELOPER TOOL",
+};
+const summaries: Record<string, string> = {
+  mathe: "A considered digital home for a local tea company.",
+  "street-eats": "A food delivery concept, from browsing to checkout.",
+  portfolio: "The original home for my design and development work.",
+  watchstuff:
+    "A familiar video experience, built to explore React and the YouTube API.",
+};
+export default function Project({
+  className,
+  title,
+  description,
+  slug,
+  index,
+  image,
+  tech,
+}: Pick<ProjectData, "title" | "description" | "slug" | "image" | "tech"> & {
+  className?: string;
+  index: number;
+}) {
+  const rememberScroll = useContext(PortfolioScrollContext);
+  return (
+    <Card
+      onNavigate={rememberScroll}
+      scroll={false}
+      className={className}
+      href={`/project/${slug}/`}
+      aria-label={`show ${title} project info panel`}
+      data-featured={index === 0}
+    >
+      <div className="project-visual">
+        <div className="visual-top">
+          <span>● ● ●</span>
+          <span>{categories[slug] || "WEB EXPERIENCE"}</span>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+        </div>
+        <Thumbnail src={image.src} alt={`${title} website preview`} />
+        <span className="view-case">Explore project ↗</span>
+      </div>
+      <div className="project-copy">
+        <div className="project-kicker">
+          {categories[slug] || "WEB EXPERIENCE"}
+        </div>
+        <h3>
+          {title}
+          <span aria-hidden="true">↗</span>
+        </h3>
+        <p>{summaries[slug] || description}</p>
+        <div className="project-tech">
+          {tech.slice(0, 3).map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </div>
+    </Card>
+  );
 }
-const Row = styled(Link)`
-  position: relative;
-  display: grid;
-  grid-template-columns: 24px 96px minmax(0, 1fr) 32px;
-  gap: 16px;
-  align-items: center;
-  padding: 24px 16px;
-  margin: 2px -16px;
-  border: 1px solid transparent;
-  border-bottom-color: rgba(160,190,210,.1);
-  border-radius: 12px;
-  color: #ecf6f5;
+const Card = styled(Link)`
+  display: block;
+  min-width: 0;
+  color: #e5f0ee;
   text-decoration: none;
   cursor: pointer;
-  isolation: isolate;
-  transition: border-color 180ms ease, color 180ms ease;
-  &::before {
-    content: '';
+  .project-visual {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(145deg, #183f3b, #101e26);
+    padding: 24px 32px 0;
+    border: 1px solid #9bb5c525;
+    border-radius: 16px;
+    aspect-ratio: 1.45;
+    isolation: isolate;
+  }
+  &:nth-child(2n) .project-visual {
+    background: linear-gradient(145deg, #1c254b, #111727);
+  }
+  .visual-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.1em;
+    color: #c5d9db77;
+    margin-bottom: 22px;
+  }
+  .visual-top > span:first-child {
+    letter-spacing: 3px;
+    font-size: 7px;
+  }
+  .project-copy {
+    padding: 28px 0 12px;
+  }
+  .project-kicker {
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.14em;
+    color: #5db6a4;
+    margin-bottom: 13px;
+  }
+  h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  h3 > span {
+    font-size: 25px;
+    font-weight: 300;
+    color: #91a7b0;
+    transition:
+      transform 0.3s,
+      color 0.3s;
+  }
+  .project-copy > p {
+    color: #8fa3ae;
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 420px;
+  }
+  .project-tech {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .project-tech > span {
+    font:
+      9px ui-monospace,
+      monospace;
+    color: #9fb1ba;
+    border: 1px solid #89a6af26;
+    border-radius: 5px;
+    padding: 5px 9px;
+  }
+  .view-case {
     position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background: linear-gradient(105deg, rgba(80,227,194,.12), rgba(68,94,255,.06));
+    bottom: 24px;
+    right: 24px;
+    padding: 12px 17px;
+    background: #50e3c2;
+    color: #082c25;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
     opacity: 0;
-    transition: opacity 180ms ease;
+    transform: translateY(8px);
+    transition:
+      opacity 0.25s,
+      transform 0.25s;
   }
-  .project-tech { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
-  .project-tech > span { font-size: 10px; color: #91aaaF; border: 1px solid rgba(145,170,175,.16); border-radius: 20px; padding: 3px 8px; }
-  .project-number { font-size: 13px; color: #788d9d; font-variant-numeric: tabular-nums; }
-  .project-copy { display: grid; gap: 8px; }
-  .project-title { font-size: 19px; font-weight: 500; letter-spacing: -.025em; }
-  .project-description { font-size: 14px; line-height: 1.65; color: #a4b3bf; }
-  .project-arrow { font-size: 24px; color: #788d9d; justify-self: end; transition: transform 180ms ease, color 180ms ease; }
-  &:hover, &:focus-visible {
-    color: #50e3c2;
-    border-color: rgba(80,227,194,.23);
-    &::before { opacity: 1; }
-    .project-arrow { color: #50e3c2; transform: translate(2px, -2px); }
+  &:hover,
+  &:focus-visible {
+    h3 > span {
+      color: #50e3c2;
+      transform: translate(3px, -3px);
+    }
+    .view-case {
+      opacity: 1;
+      transform: none;
+    }
   }
-  &:focus-visible { outline: 2px solid #50e3c2; outline-offset: 3px; }
+  &[data-featured="true"] {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #9bbfc21c;
+  }
+  &[data-featured="true"] .project-copy {
+    padding: 0;
+  }
+  &[data-featured="true"] h3 {
+    font-size: 50px;
+  }
+  &[data-featured="true"] .project-copy > p {
+    font-size: 16px;
+  }
+  &[data-featured="true"] .project-visual {
+    aspect-ratio: 1.48;
+  }
+  @media (max-width: 1000px) {
+    &[data-featured="true"] {
+      gap: 32px;
+    }
+    .project-visual {
+      padding: 20px 22px 0;
+    }
+  }
   @media (max-width: 767px) {
-    grid-template-columns: minmax(0, 1fr) 24px;
-    padding: 20px 12px;
-    margin-inline: -12px;
-    gap: 10px;
-    .project-number { display: none; }
-    .project-title { font-size: 18px; }
+    &[data-featured="true"] {
+      display: block;
+      padding-bottom: 0;
+      border: 0;
+    }
+    &[data-featured="true"] h3,
+    h3 {
+      font-size: 30px;
+    }
+    &[data-featured="true"] .project-copy {
+      padding: 24px 0 12px;
+    }
+    &[data-featured="true"] .project-copy > p {
+      font-size: 14px;
+    }
+    .project-copy {
+      padding: 24px 0 12px;
+    }
+    .project-visual {
+      aspect-ratio: 1.35;
+    }
+    .project-tech {
+      margin-top: 16px;
+    }
+    .visual-top {
+      font-size: 7px;
+    }
+    .view-case {
+      display: none;
+    }
   }
-`
-
+  @media (prefers-reduced-motion: reduce) {
+    .view-case,
+    h3 > span {
+      transition: none;
+    }
+  }
+`;
 const Thumbnail = styled(PortfolioImage)`
   position: relative;
-  width: 96px;
-  height: 76px;
-  border-radius: 10px;
-  border: 1px solid rgba(160,190,210,.15);
-  transition: transform 250ms ease;
-  img { object-position: top; }
-  ${Row}:hover &, ${Row}:focus-visible & { transform: translateY(-3px) rotate(-2deg); }
-  @media (max-width: 767px) { display: none; }
-  @media (prefers-reduced-motion: reduce) { transition: none; ${Row}:hover & { transform: none; } }
-`
+  width: 100%;
+  height: 100%;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 15px 50px #0007;
+  transform: translateY(3px);
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  img {
+    object-position: top;
+    object-fit: cover;
+  }
+  ${Card}:hover & {
+    transform: translateY(-6px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    ${Card}:hover & {
+      transform: none;
+    }
+  }
+`;

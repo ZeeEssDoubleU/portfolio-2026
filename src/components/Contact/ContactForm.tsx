@@ -1,5 +1,5 @@
-import React, { useRef } from "react"
-import styled from "styled-components"
+import React, { useRef } from "react";
+import styled from "styled-components";
 // import utils
 // // function pushes contact data for Firebase & Firestore
 // import { pushInquiry } from "../../utils/firebase"
@@ -10,10 +10,10 @@ import styled from "styled-components"
 
 const ContactForm = () => {
   // refs to push contact data to Firebase & Firestore
-  const inputName = useRef<HTMLInputElement>(null)
-  const inputEmail = useRef<HTMLInputElement>(null)
-  const inputSubject = useRef<HTMLInputElement>(null)
-  const inputMessage = useRef<HTMLTextAreaElement>(null)
+  const inputName = useRef<HTMLInputElement>(null);
+  const inputEmail = useRef<HTMLInputElement>(null);
+  const inputSubject = useRef<HTMLInputElement>(null);
+  const inputMessage = useRef<HTMLTextAreaElement>(null);
 
   return (
     <Grid
@@ -39,48 +39,54 @@ const ContactForm = () => {
       {/* hidden honeypot field meant to capture bots */}
       <input name="honeypot-field" style={{ display: "none" }} />
       <div className="form-div">
+        <label htmlFor="name">Your name</label>
         <input
           className="form-field"
           type="text"
+          autoComplete="name"
           name="name"
           id="name"
           aria-label="name"
-          placeholder="Name"
+          placeholder="What should I call you?"
           ref={inputName}
           required
         />
       </div>
       <div className="form-div">
+        <label htmlFor="email">Email address</label>
         <input
           className="form-field"
+          autoComplete="email"
           type="email"
           name="email"
           id="email"
           aria-label="email"
-          placeholder="Email"
+          placeholder="you@example.com"
           ref={inputEmail}
           required
         />
       </div>
-      <div className="form-div">
+      <div className="form-div wide">
+        <label htmlFor="subject">What’s on your mind?</label>
         <input
           className="form-field"
           type="text"
           name="subject"
           id="subject"
           aria-label="subject"
-          placeholder="Subject"
+          placeholder="A new website, a collaboration, a question…"
           ref={inputSubject}
           required
         />
       </div>
-      <div className="form-div">
+      <div className="form-div wide">
+        <label htmlFor="message">Tell me a little more</label>
         <textarea
           className="form-field form-textarea"
           name="message"
           id="message"
           aria-label="message"
-          placeholder="Message"
+          placeholder="The idea, the details, or just a hello."
           ref={inputMessage}
           required
           spellCheck={true}
@@ -89,9 +95,9 @@ const ContactForm = () => {
         />
       </div>
     </Grid>
-  )
-}
-export default ContactForm
+  );
+};
+export default ContactForm;
 
 // **********
 // styles
@@ -99,34 +105,50 @@ export default ContactForm
 
 const Grid = styled.form`
   display: grid;
-  grid-row-gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 20px;
+  .wide {
+    grid-column: 1/-1;
+  }
+  label {
+    display: block;
+    color: #bacbd0;
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
+  }
+
   .form-field {
     width: 100%;
-    background: rgba(3, 9, 18, .45);
+    background: #0b121a;
     color: #c9d8e0;
     font-size: 16px;
-    padding: 12px 24px;
-    border: 1px solid rgba(157,191,210,.18);
-    border-radius: 12px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 14px 16px;
+    border: 1px solid rgba(157, 191, 210, 0.18);
+    border-radius: 6px;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
     &.form-textarea {
-      min-height: 150px;
+      min-height: 140px;
       resize: vertical;
     }
     &:required {
       box-shadow: none;
     }
     &::placeholder {
-      color: #c9d8e0;
-      opacity: .7;
+      color: #617783;
+      opacity: 1;
     }
     &:focus {
       outline: none;
-      border-color: rgba(80,227,194,.65);
-      box-shadow: 0 0 0 1px hsla(${props => props.theme.appGreenPartial}, 0.5);
+      border-color: rgba(80, 227, 194, 0.65);
+      box-shadow: 0 0 0 1px hsla(${(props) => props.theme.appGreenPartial}, 0.5);
       &::placeholder {
         opacity: 0;
       }
     }
   }
-`
+`;

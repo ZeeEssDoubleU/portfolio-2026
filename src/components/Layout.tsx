@@ -179,10 +179,6 @@ const Modal = styled.div`
     max-width: calc(${props => props.theme.insetWidth} + 32px);
     border-radius: 20px;
   }
-  @media (min-width: ${props => props.theme.desktop + 'px'}) {
-    left: 55%;
-    width: calc(90% - 32px);
-  }
 `
 const Panel = styled(motion.div)`
   position: absolute;
