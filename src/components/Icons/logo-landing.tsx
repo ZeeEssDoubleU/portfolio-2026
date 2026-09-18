@@ -13,11 +13,20 @@ const SVG = (props: React.SVGProps<SVGSVGElement>) => (
       </mask>
       <linearGradient id="landing-ring-sheen-light">
         <stop offset="0%" stopColor="#fff9e8" stopOpacity="0" />
-        <stop offset="35%" stopColor="#fff9e8" stopOpacity=".3" />
-        <stop offset="50%" stopColor="#fff" stopOpacity="1" />
-        <stop offset="65%" stopColor="#fff9e8" stopOpacity=".3" />
+        <stop offset="20%" stopColor="#fff2cc" stopOpacity=".7" />
+        <stop offset="38%" stopColor="#fff" stopOpacity="1" />
+        <stop offset="62%" stopColor="#fff" stopOpacity="1" />
+        <stop offset="80%" stopColor="#fff2cc" stopOpacity=".7" />
         <stop offset="100%" stopColor="#fff9e8" stopOpacity="0" />
       </linearGradient>
+      <filter id="landing-ring-sheen-bloom" x="-25%" y="-25%" width="150%" height="150%" colorInterpolationFilters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="glow" />
+        <feMerge>
+          <feMergeNode in="glow" />
+          <feMergeNode in="glow" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
       <path
         id="logo-+-name-+-title---ring-style-2-a"
         d="M250.160912,95.4395411 L180.351361,198.886047 C180.042423,199.343842 179.420864,199.464515 178.963069,199.155578 C178.827461,199.064064 178.716376,198.940678 178.639556,198.796239 L164.010494,171.290584 C163.836809,170.96402 163.857567,170.568253 164.064463,170.261651 L235.98059,63.6880953 C242.100571,73.4485237 246.909604,84.1145986 250.160912,95.4395411 Z M119.519226,198.663616 L104.803682,171.007239 C104.629902,170.680637 104.650638,170.284775 104.857589,169.978116 L178.238425,61.2430399 C178.424341,60.9675523 178.734976,60.8024324 179.067328,60.8024324 L212.441353,60.8024324 C212.993638,60.8024324 213.441353,61.2501477 213.441353,61.8024324 C213.441353,62.0017727 213.381777,62.1965643 213.270272,62.3618012 L121.230955,198.753254 C120.922024,199.211054 120.300467,199.331735 119.842667,199.022804 C119.707104,198.931324 119.596047,198.807992 119.519226,198.663616 Z M153.886573,62.3610425 L118.547768,114.832485 C118.239256,115.290566 117.61781,115.411817 117.159728,115.103305 C117.023565,115.011601 116.912072,114.887785 116.835093,114.742787 L88.9781251,62.2713449 C88.7191519,61.7835424 88.9046546,61.178161 89.3924572,60.9191878 C89.5368664,60.8425213 89.6978711,60.8024324 89.8613697,60.8024324 L153.057142,60.8024324 C153.609427,60.8024324 154.057142,61.2501477 154.057142,61.8024324 C154.057142,62.0014609 153.997752,62.1959622 153.886573,62.3610425 Z"
@@ -240,9 +249,11 @@ const SVG = (props: React.SVGProps<SVGSVGElement>) => (
           fill="url(#logo-+-name-+-title---ring-style-2-j)"
           d="M130,260 C58.2029825,260 0,201.797017 0,130 C0,58.2029825 58.2029825,0 130,0 C201.797017,0 260,58.2029825 260,130 C260,201.797017 201.797017,260 130,260 Z M130,255 C199.035594,255 255,199.035594 255,130 C255,60.9644063 199.035594,5 130,5 C60.9644063,5 5,60.9644063 5,130 C5,199.035594 60.9644063,255 130,255 Z"
         />
-        <g mask="url(#landing-ring-sheen-mask)" aria-hidden="true">
-          <g className="logo-ring-sheen">
-            <path fill="url(#landing-ring-sheen-light)" d="M-50,-40 H40 L130,300 H40 Z" />
+        <g filter="url(#landing-ring-sheen-bloom)" aria-hidden="true">
+          <g mask="url(#landing-ring-sheen-mask)">
+            <g className="logo-ring-sheen">
+              <rect fill="url(#landing-ring-sheen-light)" x="-70" y="-60" width="140" height="380" transform="rotate(-18 0 130)" />
+            </g>
           </g>
         </g>
       </g>

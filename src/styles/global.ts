@@ -28,17 +28,18 @@ export default createGlobalStyle<{ menuExpanded?: boolean; modal?: boolean }>`
          from { filter: drop-shadow(0 0 14px rgba(80, 227, 194, .22)); }
          to { filter: drop-shadow(0 0 0 rgba(80, 227, 194, 0)); }
       }
-      /* A single warm-white reflection, clipped to the five-unit outer ring.
-         It may finish alongside the content reveal; it never holds up loading. */
+      /* Let the brighter reflection finish against black before revealing the page.
+         The bloom is applied after masking so light can spill beyond the ring. */
+      .site-background .logo { overflow: visible; }
       .site-background .logo-ring-sheen {
          pointer-events: none;
-         animation: portfolio-ring-sheen 700ms cubic-bezier(.4, 0, .2, 1) both;
+         animation: portfolio-ring-sheen 1300ms 150ms cubic-bezier(.25, .1, .25, 1) both;
       }
       @keyframes portfolio-ring-sheen {
-         0% { transform: translateX(-130px); opacity: 0; }
-         12% { opacity: 1; }
-         85% { opacity: 1; }
-         100% { transform: translateX(310px); opacity: 0; }
+         0% { transform: translateX(-150px); opacity: 0; }
+         8% { opacity: 1; }
+         92% { opacity: 1; }
+         100% { transform: translateX(410px); opacity: 0; }
       }
       @media (prefers-reduced-motion: reduce) {
          html[data-site-entry='revealing'] [data-entry-reveal],

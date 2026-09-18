@@ -13,7 +13,10 @@ function boot({ pathname = '/', reduced = false } = {}) {
   const timers = new Map(), events = new Map(), root = { dataset: {} }, window = {}
   let id = 0
   vm.runInNewContext(module.exports.initialRevealBootstrap, {
-    location: { pathname }, document: { documentElement: root }, window,
+    location: { pathname }, document: { documentElement: root,
+      addEventListener: (event, callback) => events.set(event, callback),
+      removeEventListener: event => events.delete(event),
+    }, window,
     matchMedia: () => ({ matches: reduced }),
     setTimeout: (callback, delay) => { timers.set(++id, { callback, delay }); return id },
     clearTimeout: id => timers.delete(id),
@@ -22,10 +25,14 @@ function boot({ pathname = '/', reduced = false } = {}) {
   return { root, window, timers, events }
 }
 
-test('entry is hidden before hydration and reveals exactly once with no minimum wait', () => {
-  const { root, window, timers } = boot()
+test('ready assets wait for the complete sheen, then reveal exactly once', () => {
+  const { root, window, timers, events } = boot()
   assert.equal(root.dataset.siteEntry, 'waiting')
   window.__revealPortfolio()
+  assert.equal(root.dataset.siteEntry, 'waiting')
+  events.get('animationend')({ animationName: 'unrelated' })
+  assert.equal(root.dataset.siteEntry, 'waiting')
+  events.get('animationend')({ animationName: 'portfolio-ring-sheen' })
   assert.equal(root.dataset.siteEntry, 'revealing')
   window.__revealPortfolio()
   assert.equal(timers.size, 1)
@@ -62,4 +69,12 @@ test('project and thanks routes keep their existing transitions', () => {
     assert.equal(window.__revealPortfolio, undefined)
     assert.equal(timers.size, 0)
   }
+})
+
+test('a completed sheen still waits for slow assets', () => {
+  const { root, window, events } = boot()
+  events.get('animationend')({ animationName: 'portfolio-ring-sheen' })
+  assert.equal(root.dataset.siteEntry, 'waiting')
+  window.__revealPortfolio()
+  assert.equal(root.dataset.siteEntry, 'revealing')
 })
