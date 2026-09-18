@@ -2,13 +2,13 @@
 
 Zak (Zachary) Williams' personal portfolio, migrated from Gatsby to Next.js while retaining the original design, project history, and URLs.
 
-- **Website:** https://zsw-portfolio-2026-preview.netlify.app/
+- **Website:** https://zswportfolio-preview.netlify.app/
 - **Application branch:** [`design/modern-preview`](https://github.com/ZeeEssDoubleU/portfolio-2026/tree/design/modern-preview)
 - **Original project:** [portfolio-2019](https://github.com/ZeeEssDoubleU/portfolio-2019)
 
 ## Preview scope
 
-This branch is an isolated design exploration. Production remains on `main` and https://zswportfolio.netlify.app/. Deploy this branch only to the separate `zsw-portfolio-2026-preview` Netlify project (ID `d9598791-09cf-4b50-ad57-d6c6efde2296`).
+This branch is an isolated design exploration. Production remains on `main` and https://zswportfolio.netlify.app/. Deploy this branch only to the separate `zswportfolio-preview` Netlify project (ID `d9598791-09cf-4b50-ad57-d6c6efde2296`).
 
 The design adds dark glass cards, desktop-only 10px backdrop blur, updated typography and buttons, and fully clickable project rows with hover/focus illumination. Small screens and reduced-motion/transparency preferences use an opaque fallback. Filters are not animated. Real-device frame rates should be reviewed before promoting the design.
 

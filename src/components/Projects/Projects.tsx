@@ -14,7 +14,7 @@ export default function Projects() {
   }, []);
   const reduced = useReducedMotion();
   const visibleProjects = projects.filter(
-    (project) => project.slug !== "github-issue-tracker",
+    (project) => project.slug !== "github-issue-tracker" && project.slug !== "portfolio",
   );
   const row = (project: ProjectData, index: number) => (
     <Project
